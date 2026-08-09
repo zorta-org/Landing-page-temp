@@ -90,7 +90,7 @@
     const rect = orbit.getBoundingClientRect();
     const vh = window.innerHeight;
     const p0 = vh * 0.88;  // orbit top at this viewport y -> progress 0
-    const p1 = vh * 0.30;  // orbit top at this viewport y -> progress 1
+    const p1 = vh * -0.4;  // orbit top at this viewport y -> progress 1
     const raw = (p0 - rect.top) / (p0 - p1);
     return Math.min(1, Math.max(0, raw));
   }
