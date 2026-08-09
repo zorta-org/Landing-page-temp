@@ -1,33 +1,254 @@
-<!doctype html>
-<html class="no-js" lang="">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
-  <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="">
-
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="">
-
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
-
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#fafafa">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zorta — A home for builders. Globally connected.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-  <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
-  <script src="js/app.js"></script>
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#top" class="nav__logo">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 21s-7.5-4.6-10-9.3C.4 8.1 2.1 4 6 4c2.2 0 3.7 1.2 6 3.6C14.3 5.2 15.8 4 18 4c3.9 0 5.6 4.1 4 7.7C19.5 16.4 12 21 12 21z" fill="currentColor"/>
+      </svg>
+      <span>Zorta</span>
+    </a>
 
+    <nav class="nav__links" id="navLinks">
+      <a href="#thrive">Community</a>
+      <a href="#ecosystem">Network</a>
+      <a href="#rewards">Marketplace</a>
+    </nav>
+
+    <div class="nav__actions">
+      <a href="#" class="nav__login">Log In</a>
+      <a href="#" class="btn btn--pill btn--sm">Join Us</a>
+    </div>
+
+    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <div class="hero__text">
+        <span class="eyebrow">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z" fill="currentColor"/></svg>
+          Built for you, by us
+        </span>
+
+        <h1 class="hero__title">
+          A home for builders.<br>
+          <span class="accent">Globally connected.</span>
+        </h1>
+
+        <p class="hero__lede">
+          Welcome to Zorta. We built this platform because we believe talented
+          developers deserve a community that supports them, hosts their ideas,
+          and helps them earn freely — no matter where they are in the world.
+        </p>
+
+        <div class="hero__actions">
+          <a href="#" class="btn btn--pill">
+            Join the Community
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.1 2.1 4 6 4c2.2 0 3.7 1.2 6 3.6C14.3 5.2 15.8 4 18 4c3.9 0 5.6 4.1 4 7.7C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>
+          </a>
+          <a href="#" class="btn btn--ghost">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 015.5 3H11v18H5.5A1.5 1.5 0 014 19.5v-15z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M20 4.5A1.5 1.5 0 0018.5 3H13v18h5.5a1.5 1.5 0 001.5-1.5v-15z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            Read Our Story
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <canvas id="sphere" width="480" height="480" aria-hidden="true"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THRIVE ============ -->
+  <section class="thrive" id="thrive">
+    <div class="section__head">
+      <span class="eyebrow eyebrow--center">What You Get</span>
+      <h2>Everything You Need to Thrive</h2>
+      <p>Every tool a builder needs, woven into one connected home.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card">
+        <div class="card__icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6L3 12l6 6M15 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>A Place for Your Code</h3>
+        <p>Host your projects effortlessly. We provide the infrastructure so you can focus on bringing your ideas to life.</p>
+        <a href="#" class="card__link">Start Deploying <span>→</span></a>
+      </article>
+
+      <article class="card">
+        <div class="card__icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="17.5" cy="9" r="2.4" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 20c.3-2.7 2.5-4.8 5.3-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Find Your People</h3>
+        <p>Connect with fellow creators. Share knowledge, collaborate on passion projects, and grow together.</p>
+        <a href="#" class="card__link">Meet the Community <span>→</span></a>
+      </article>
+
+      <article class="card">
+        <div class="card__icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.3 5.9.8-4.3 4.1 1 5.8L12 16l-5.2 3 1-5.8-4.3-4.1 5.9-.8L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Share &amp; Earn</h3>
+        <p>Offer your creations to the community. Earn fairly and securely, supported by a system designed to empower you.</p>
+        <a href="#" class="card__link">Visit the Bazaar <span>→</span></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ ECOSYSTEM / ORBIT ANIMATION ============ -->
+  <section class="ecosystem" id="ecosystem">
+    <div class="section__head">
+      <span class="eyebrow eyebrow--center">The Ecosystem</span>
+      <h2>Every platform becomes a builder capability inside Zorta.</h2>
+      <p>Stop juggling five tabs. Connect the tools you already use and watch them fold into one calm interface.</p>
+    </div>
+
+    <div class="orbit" id="orbit">
+      <div class="orbit__core">
+        <span>ZORTA</span>
+      </div>
+      <div class="orbit__ring" aria-hidden="true"></div>
+
+      <div class="orbit__badge" data-angle="270" data-radius="1">Fiverr</div>
+      <div class="orbit__badge" data-angle="220" data-radius="1">Hostinger</div>
+      <div class="orbit__badge" data-angle="320" data-radius="1">AI</div>
+      <div class="orbit__badge" data-angle="180" data-radius="1">Notion</div>
+      <div class="orbit__badge" data-angle="0"   data-radius="1">GitHub</div>
+      <div class="orbit__badge" data-angle="130" data-radius="1">Reddit</div>
+      <div class="orbit__badge" data-angle="50"  data-radius="1">LinkedIn</div>
+      <div class="orbit__badge" data-angle="90"  data-radius="1">Discord</div>
+    </div>
+
+    <p class="orbit__caption" id="orbitCaption">Scroll to bring your stack home.</p>
+  </section>
+
+  <!-- ============ DIVIDER BAND ============ -->
+  <section class="band">
+    <p>Built for the next generation of global builders.</p>
+  </section>
+
+  <!-- ============ REWARDS ============ -->
+  <section class="rewards" id="rewards">
+    <div class="rewards__text">
+      <span class="eyebrow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.8-4.3 4.1 1 5.8L12 16l-5.2 3 1-5.8-4.3-4.1 5.9-.8L12 3z" fill="currentColor"/></svg>
+        Accessible Rewards
+      </span>
+      <h2>Earn Real Value.<br>On Your Terms.</h2>
+      <p>We wanted to make sure everyone gets paid, regardless of where they
+        live. Turn your hard work directly into gift cards for the things
+        you love and need.</p>
+
+      <div class="payouts">
+        <div class="payouts__item">
+          <div class="payouts__icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8a3 3 0 016 0" stroke="currentColor" stroke-width="1.6"/></svg>
+          </div>
+          <span>Amazon</span>
+        </div>
+        <div class="payouts__item">
+          <div class="payouts__icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="12" r="1.6" fill="currentColor"/><path d="M14 10h4M14 14h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <span>Steam</span>
+        </div>
+        <div class="payouts__item">
+          <div class="payouts__icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></svg>
+          </div>
+          <span>More Options</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rewards__visual">
+      <div class="balance-card">
+        <div class="balance-card__head">
+          <span>Your Balance</span>
+          <strong>$1,240.50</strong>
+        </div>
+
+        <div class="balance-card__row">
+          <div class="balance-card__row-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.1 2.1 4 6 4c2.2 0 3.7 1.2 6 3.6C14.3 5.2 15.8 4 18 4c3.9 0 5.6 4.1 4 7.7C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>
+          </div>
+          <div class="balance-card__row-text">
+            <span>Community Support</span>
+            <small>Today, 14:30</small>
+          </div>
+          <span class="balance-card__amount balance-card__amount--pos">+$45.00</span>
+        </div>
+
+        <div class="balance-card__row">
+          <div class="balance-card__row-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/></svg>
+          </div>
+          <div class="balance-card__row-text">
+            <span>Steam Gift Card</span>
+            <small>Yesterday</small>
+          </div>
+          <span class="balance-card__amount">-$50.00</span>
+        </div>
+
+        <a href="#" class="btn btn--pill btn--block">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 12v7a1 1 0 01-1 1H5a1 1 0 01-1-1v-7M3 8h18v4H3V8zM12 3v9M12 3l3 3M12 3l-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Redeem Your Rewards
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer__top">
+    <a href="#top" class="nav__logo">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.1 2.1 4 6 4c2.2 0 3.7 1.2 6 3.6C14.3 5.2 15.8 4 18 4c3.9 0 5.6 4.1 4 7.7C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>
+      <span>Zorta</span>
+    </a>
+    <div class="footer__cols">
+      <div>
+        <h4>Product</h4>
+        <a href="#thrive">Community</a>
+        <a href="#ecosystem">Network</a>
+        <a href="#rewards">Marketplace</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#">Our Story</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2026 Zorta. All rights reserved.</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
-
 </html>
