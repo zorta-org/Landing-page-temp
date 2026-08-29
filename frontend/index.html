@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<script>
+(function(){
+  try{
+    var known=['dark','medium','light','midnight_blurple','crimson','forest','citrus_sherbet','mint_apple','blush','spring_sage','peach_fizz','retro_raincloud','lofi_vibes','hanami_sunrise','cotton_candy','under_the_sea','sepia','chroma_glow','aurora','desert_khaki','mars_dusk','midnight_violet','terracotta','retro_storm','moss_garden','ocean_depths','teal_nights','neon_nights','emerald_current','golden_hour','indigo_night'];
+    var p=localStorage.getItem('zorta_theme')||'dark';
+    document.documentElement.dataset.theme=known.indexOf(p)>-1?p:'dark';
+  }catch(e){}
+})();
+</script>
+</head>
+<body>
+<div id="root"></div>
+<script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
