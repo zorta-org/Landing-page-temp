@@ -1,20 +1,329 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<script>
-(function(){
-  try{
-    var known=['dark','medium','light','midnight_blurple','crimson','forest','citrus_sherbet','mint_apple','blush','spring_sage','peach_fizz','retro_raincloud','lofi_vibes','hanami_sunrise','cotton_candy','under_the_sea','sepia','chroma_glow','aurora','desert_khaki','mars_dusk','midnight_violet','terracotta','retro_storm','moss_garden','ocean_depths','teal_nights','neon_nights','emerald_current','golden_hour','indigo_night'];
-    var p=localStorage.getItem('zorta_theme')||'dark';
-    document.documentElement.dataset.theme=known.indexOf(p)>-1?p:'dark';
-  }catch(e){}
-})();
-</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ZORTA — Build More. Switch Less.</title>
+<meta name="description" content="Zorta is an all-in-one platform to build, work, collaborate, network, and earn rewards without constantly switching between apps.">
+<style>
+:root{
+  --bg:#08060d;--panel:#100c18;--panel2:#151020;--purple:#8b5cf6;--purple2:#a855f7;
+  --pink:#f0abfc;--cyan:#67e8f9;--text:#f7f3ff;--muted:#aaa1b8;--line:#2a2038;
+  --good:#86efac;--bad:#fb7185;--shadow:0 24px 80px #0009;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:
+radial-gradient(circle at 80% 5%,#5b21b620,transparent 30rem),
+radial-gradient(circle at 10% 45%,#a855f710,transparent 28rem),var(--bg);
+color:var(--text);font-family:Inter,ui-sans-serif,system-ui,sans-serif;overflow-x:hidden}
+button,input{font:inherit}button{cursor:pointer}.mono,h1,h2,h3,.eyebrow,.tag,.stat,.rank{font-family:"SFMono-Regular",Consolas,monospace}
+a{color:inherit;text-decoration:none}.wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+nav{position:sticky;top:0;z-index:50;background:#08060de8;backdrop-filter:blur(18px);border-bottom:1px solid #2a2038}
+.navin{height:68px;display:flex;align-items:center;gap:16px}.brand{font-weight:900;letter-spacing:.14em;font-size:18px;margin-right:auto}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--purple2);box-shadow:0 0 18px var(--purple2);margin-right:7px}
+.actions{display:flex;gap:8px}.btn{border:1px solid #3a2b50;background:#171022;color:var(--text);padding:11px 14px;border-radius:10px;font-weight:800;font-size:12px;letter-spacing:.06em}
+.btn.primary{background:linear-gradient(135deg,#7c3aed,#a855f7);border-color:#a855f7;box-shadow:0 8px 30px #8b5cf633}
+.socials{display:flex;gap:7px;margin-left:5px}.socials a{width:34px;height:34px;border:1px solid var(--line);border-radius:9px;display:grid;place-items:center;color:#cfc4dc;transition:.2s transform,.2s border-color,.2s background}.socials a:hover{transform:translateY(-2px);border-color:#554067;background:#171020}.socials svg{width:17px;height:17px;fill:currentColor}.socials .mail svg{fill:none;stroke:currentColor;stroke-width:1.8}.community{padding:30px 0 10px}.communitybox{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;align-items:stretch}.discordbox,.waitbox{border:1px solid #30243d;border-radius:18px;background:linear-gradient(145deg,#15101d,#0e0a14);padding:24px}.discordbox{position:relative;overflow:hidden}.discordbox:after{content:"";position:absolute;width:180px;height:180px;right:-80px;top:-90px;border-radius:50%;background:#5865f220;filter:blur(10px)}.discordline{display:flex;align-items:center;gap:12px;margin-bottom:13px}.discordmark{width:42px;height:42px;border-radius:12px;background:#5865f215;border:1px solid #5865f255;display:grid;place-items:center;color:#aeb5ff}.discordmark svg{width:24px;height:24px;fill:currentColor}.discordbox h3,.waitbox h3{margin:0;font-size:22px}.discordbox p,.waitbox p{color:var(--muted);line-height:1.55;margin:9px 0 18px;font-size:13px}.discordbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid #5865f266;background:#5865f214;color:#fff;padding:11px 14px;border-radius:10px;font-weight:900;font-size:12px}.discordbtn:hover{background:#5865f226}.waitbox{display:flex;flex-direction:column;justify-content:space-between}.waitbox .btn{width:100%}.wait-modal{position:fixed;inset:0;background:#05030acc;backdrop-filter:blur(14px);z-index:120;display:grid;place-items:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .18s ease}.wait-modal.open{opacity:1;pointer-events:auto}.wait-panel{width:min(520px,100%);background:#100b17;border:1px solid #49365b;border-radius:20px;box-shadow:var(--shadow);padding:24px}.wait-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.wait-head h2{margin:0;font-size:30px}.wait-close{border:1px solid var(--line);background:#18101f;color:#fff;border-radius:8px;width:34px;height:34px}.wait-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.wait-option{border:1px solid #30243d;background:#15101d;border-radius:14px;padding:16px}.wait-option h3{margin:0 0 6px;font-size:14px}.wait-option p{margin:0 0 14px;color:var(--muted);font-size:12px;line-height:1.45}.wait-discord{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:1px solid #5865f255;background:#5865f214;color:#fff;padding:11px;border-radius:9px;font-weight:900}.wait-discord svg{width:18px;height:18px;fill:currentColor}.wait-email{display:flex;gap:7px}.wait-email input{width:100%;min-width:0;background:#0d0912;border:1px solid #3a2c49;color:#fff;padding:11px;border-radius:9px;outline:none}.wait-email input:focus{border-color:#8b5cf6}.wait-email button{white-space:nowrap;border-radius:9px}.wait-status{min-height:18px;margin-top:10px;font-size:12px;color:var(--muted)}.wait-status.success{color:var(--good)}.wait-status.error{color:#fda4af}@media(max-width:760px){.communitybox{grid-template-columns:1fr}.wait-options{grid-template-columns:1fr}}@media(max-width:520px){.wait-panel{padding:18px}.wait-email{display:grid;grid-template-columns:1fr}.wait-email button{width:100%}}
+section{padding:76px 0}.hero{min-height:72vh;display:grid;place-items:center;text-align:center;position:relative}
+.hero:before{content:"";position:absolute;width:60vw;height:60vw;max-width:700px;max-height:700px;border-radius:50%;background:#8b5cf615;filter:blur(50px);z-index:-1}
+.logo{font-size:clamp(72px,16vw,180px);font-weight:1000;letter-spacing:.16em;line-height:.8;text-shadow:0 0 50px #8b5cf655;margin-left:.16em}
+.hero h1{font-size:clamp(18px,3vw,30px);margin:28px 0 0}.soon{display:inline-flex;margin-top:20px;border:1px solid #8b5cf655;background:#8b5cf612;padding:7px 11px;border-radius:999px;color:#d8c4ff;font-size:11px;letter-spacing:.14em}
+.hero .one{max-width:760px;margin:16px auto 0;color:var(--muted);font-size:15px}
+.eyebrow{font-size:11px;color:#b99bea;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px}
+.about{padding-top:30px}.aboutbox{max-width:850px}.about h2{font-size:clamp(30px,6vw,58px);margin:0 0 18px}.about p{font-size:clamp(17px,2.4vw,22px);line-height:1.55;color:#d6cedd;margin:0}.quote{color:#fff;font-weight:900}
+.wow{padding:40px 0 70px}.wowbox{height:270px;border:1px solid #38244f;border-radius:24px;background:linear-gradient(135deg,#120b1d,#0b0810);display:grid;place-items:center;overflow:hidden;position:relative;box-shadow:var(--shadow)}
+.wowword{font-size:clamp(44px,10vw,110px);font-weight:1000;letter-spacing:-.07em;animation:float 3s ease-in-out infinite}.wowword span{color:var(--purple2)}
+.scan{position:absolute;inset:0;background:linear-gradient(transparent 49%,#a855f711 50%,transparent 51%);background-size:100% 12px;opacity:.45}
+@keyframes float{50%{transform:translateY(-10px) scale(1.025);text-shadow:0 0 70px #a855f755}}@keyframes pulse{50%{box-shadow:0 0 0 12px #8b5cf500}} 
+.arcade{background:linear-gradient(180deg,#0a0710,#0d0814);border-top:1px solid #24192f;border-bottom:1px solid #24192f}.arc-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:25px}.arc-head h2{font-size:clamp(34px,7vw,68px);margin:0}.profile{min-width:270px;border:1px solid var(--line);background:#110d18;padding:15px;border-radius:15px}
+.profiletop{display:flex;justify-content:space-between;font-size:12px}.meter{height:8px;background:#21182d;border-radius:9px;overflow:hidden;margin:10px 0}.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));width:35%;transition:width .5s}
+.profile small{color:var(--muted)}.danger{color:#fda4af}.daily{margin:30px 0}.dailyhead{display:flex;justify-content:space-between;align-items:end;margin-bottom:12px}.daily h3{font-size:24px;margin:0}.reset{font-size:11px;color:#bcb0c9}
+.dailygrid,.games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:linear-gradient(145deg,#15101d,#0e0a14);border:1px solid #30243d;border-radius:18px;padding:18px;transition:.25s transform,.25s border-color,.25s box-shadow}.card:hover{transform:translateY(-4px);border-color:#7042a5;box-shadow:0 20px 50px #0008}
+.card h3{margin:0 0 7px;font-size:19px}.desc{color:var(--muted);font-size:13px;line-height:1.45;min-height:38px}.best{font-size:11px;color:#cbbde0;margin:14px 0}.buildbtn{width:100%;padding:12px;border-radius:10px;background:#1a1126;color:white;border:1px solid #4a3263;font-weight:900}.buildbtn:hover{background:#251437;border-color:#8b5cf6}
+.board{margin:28px 0;border:1px solid #30243d;border-radius:18px;overflow:hidden}.boardhead{padding:15px 18px;display:flex;justify-content:space-between;align-items:center}.tabs button{border:0;background:none;color:#85798e;padding:7px}.tabs .active{color:#fff;border-bottom:2px solid var(--purple)}table{width:100%;border-collapse:collapse}td{padding:10px 18px;border-top:1px solid #241c2e;font-size:12px}td:last-child{text-align:right;color:#c7a8ff}
+.dailygame{min-height:300px}.gameui{margin-top:14px}.hidden{display:none!important}.center{text-align:center}.wordgrid{display:grid;grid-template-columns:repeat(5,48px);gap:6px;justify-content:center;margin:18px auto}.tile{width:48px;height:48px;border:1px solid #49385b;display:grid;place-items:center;font-weight:900;border-radius:5px}.tile.good{background:#16a34a;border-color:#16a34a}.tile.mid{background:#a16207;border-color:#a16207}.tile.bad{background:#29222f}.keyboard{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;max-width:430px;margin:auto}.key{min-width:30px;height:38px;border:0;border-radius:6px;background:#21182b;color:white;font-weight:800}.logic{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-width:430px;margin:20px auto}.logic button{min-height:70px;border:1px solid #443052;border-radius:10px;background:#181120;color:#eee;font-weight:800}.logic button.selected{border-color:var(--purple2);background:#6d28d933}.game-modal{position:fixed;inset:0;background:#05030acc;backdrop-filter:blur(12px);z-index:100;display:grid;place-items:center;padding:16px}.gamepanel{width:min(760px,100%);max-height:92vh;overflow:auto;background:#100b17;border:1px solid #4b3361;border-radius:22px;box-shadow:var(--shadow);padding:22px}.gamebar{display:flex;justify-content:space-between;align-items:center}.gamebar h2{margin:0}.close{border:1px solid var(--line);background:#18101f;color:white;border-radius:8px;padding:8px 11px}.stage{min-height:330px;display:grid;place-items:center;position:relative;margin:16px 0;border:1px solid #2a2035;border-radius:16px;background:#0b0810;overflow:hidden}.count{font-size:70px;font-weight:1000;color:#c4a7ff}.target{position:absolute;width:58px;height:58px;border-radius:16px;border:0;background:linear-gradient(135deg,#8b5cf6,#d946ef);box-shadow:0 0 35px #a855f766;animation:pop .18s ease-out}.target:active{transform:scale(.8)}@keyframes pop{from{transform:scale(.5);opacity:.2}to{transform:scale(1);opacity:1}}
+.result{text-align:center}.result .big{font-size:50px;font-weight:1000}.gamecontrols{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.notice{font-size:12px;color:var(--muted);text-align:center}
+.canvaswrap{margin-top:28px}.canvasbox{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:15px}.pixelcanvas{display:grid;grid-template-columns:repeat(64,1fr);aspect-ratio:1;background:#0b0810;border:1px solid #443052;touch-action:none}.px{border:0;padding:0;min-width:0;aspect-ratio:1}.palette{border:1px solid #30243d;border-radius:14px;padding:15px}.colors{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0}.color{aspect-ratio:1;border:2px solid transparent;border-radius:7px}.color.sel{border-color:white;outline:2px solid #8b5cf6}
+.wait{padding:55px 0;text-align:center}.wait h2{font-size:40px;margin:0}.wait form{display:flex;max-width:500px;margin:18px auto 0}.wait input{flex:1;min-width:0;background:#120d18;border:1px solid #3a2c49;color:#fff;padding:13px;border-radius:10px 0 0 10px}.wait button{border-radius:0 10px 10px 0}
+footer{border-top:1px solid #251b30;padding:35px 0;color:#94899d}.foot{display:flex;align-items:center;justify-content:space-between;gap:20px}.reveal{opacity:0;transform:translateY(18px);transition:.7s ease}.reveal.on{opacity:1;transform:none}
+@media(max-width:760px){.navin{height:auto;min-height:64px;flex-wrap:wrap;padding:9px 0}.socials{order:3;width:100%;justify-content:flex-end}.actions{gap:5px}.actions .btn{padding:9px 8px;font-size:10px}.hero{min-height:62vh}.arc-head{display:block}.profile{margin-top:18px}.dailygrid,.games{grid-template-columns:1fr}.canvasbox{grid-template-columns:1fr}.canvaswrap .pixelcanvas{width:100%}.foot{display:block}.foot .socials{justify-content:flex-start;margin:15px 0}.wordgrid{grid-template-columns:repeat(5,42px)}.tile{width:42px;height:42px}.stage{min-height:280px}}
+
+.preview{height:62px;margin:10px 0;border:1px solid #2c2137;border-radius:10px;position:relative;overflow:hidden;background:#0b0810}
+.preview:before,.preview:after{content:"";position:absolute}
+.preview-0:before{width:18px;height:18px;border-radius:6px;background:#a855f7;box-shadow:0 0 22px #a855f7;left:20%;top:22px;animation:pvShip 2s ease-in-out infinite}
+.preview-0:after{content:"↗";color:#f0abfc;right:16%;top:16px;animation:pvCursor 2s ease-in-out infinite}
+.preview-1:before{width:10px;height:10px;border-radius:3px;background:#a855f7;left:20%;top:26px;box-shadow:28px 0 #a855f7,56px 0 #a855f7,84px 0 #a855f7;animation:pvSeq 2s steps(1) infinite}
+.preview-2:before{content:"SHIP";left:12%;top:18px;font:800 14px monospace;color:#cdb5ed;animation:pvType 2.4s ease-in-out infinite}
+.preview-3{background:repeating-linear-gradient(90deg,#15101d 0 24px,#241b30 25px 26px)}
+.preview-3:after{width:22px;height:22px;border-radius:5px;background:#d946ef;left:50%;top:19px;box-shadow:0 0 20px #d946ef;animation:pvBug 2.2s ease-in-out infinite}
+.preview-4:before{left:5%;right:5%;top:27px;height:5px;background:#352640}
+.preview-4:after{left:55%;top:20px;width:12px;height:20px;border-radius:4px;background:#a855f7;animation:pvDeadline 1.7s linear infinite}
+.preview-5:before{left:10%;right:10%;top:13px;height:36px;border:1px solid #392a48;border-radius:7px;box-shadow:55px 0 #0b0810,110px 0 #0b0810,165px 0 #0b0810}
+.preview-5:after{width:10px;height:10px;border-radius:50%;background:#67e8f9;box-shadow:0 0 18px #67e8f9;left:62%;top:26px;animation:pvVerify 2.5s ease-in-out infinite}
+@keyframes pvShip{50%{left:72%;transform:scale(1.35)}}@keyframes pvCursor{50%{right:30%}}
+@keyframes pvSeq{0%,100%{opacity:.35}25%{opacity:1}50%{opacity:.45}75%{opacity:1}}
+@keyframes pvType{0%,100%{opacity:.2;transform:translateX(0)}40%{opacity:1}70%{opacity:.7;transform:translateX(35px)}}
+@keyframes pvBug{50%{transform:scale(1.25);box-shadow:0 0 30px #d946ef}}
+@keyframes pvDeadline{0%{left:5%}100%{left:90%}}@keyframes pvVerify{50%{transform:scale(1.5);left:78%}}
+
+.game-timer-label{font:9px "SFMono-Regular",Consolas,monospace;letter-spacing:.16em;color:#887995;margin-top:4px}
+.game-timer{min-width:72px;text-align:center;padding:9px 10px;border:1px solid #4b3361;border-radius:9px;background:#160e20;color:#d8bfff;font:900 16px "SFMono-Regular",Consolas,monospace;box-shadow:inset 0 0 18px #8b5cf612}
+.game-timer.warn{color:#f0abfc;border-color:#a855f7;animation:timerPulse .65s ease-in-out infinite}
+.game-timer.done{color:#fb7185;border-color:#fb7185}
+@keyframes timerPulse{50%{transform:scale(1.04);box-shadow:0 0 20px #a855f733}}
+@media(max-width:520px){.game-timer{min-width:62px;padding:8px;font-size:14px}.game-timer-label{font-size:8px}}
+</style>
 </head>
 <body>
-<div id="root"></div>
-<script type="module" src="/src/main.tsx"></script>
+<nav><div class="wrap navin">
+  <a class="brand" href="#"><span class="dot"></span>ZORTA</a>
+  <div class="actions"><button class="btn" type="button" data-open-waitlist>JOIN THE WAITLIST</button><button class="btn primary" onclick="document.querySelector('#arcade').scrollIntoView()">ENTER THE ARCADE</button></div>
+  <div class="socials" aria-label="Zorta social links">
+    <a href="[INSTAGRAM_URL]" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.8" r="1.1"/></svg></a>
+    <a href="[X_TWITTER_URL]" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h3.7l3.35 4.9L15.8 4H19l-5.35 7.05L19.5 20h-3.7l-3.75-5.45L7.7 20H4.5l5.55-7.6L5 4Z"/></svg></a>
+    <a href="[DISCORD_INVITE_URL]" aria-label="Discord"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 5.1A16.1 16.1 0 0 0 15.7 4l-.5 1a14 14 0 0 0-6.4 0l-.5-1a16.1 16.1 0 0 0-3.8 1.1C2.1 8.4 1.4 11.6 1.7 14.8a15.7 15.7 0 0 0 4.7 2.4l1.1-1.5c-.6-.2-1.2-.5-1.7-.8l.4-.3a11.3 11.3 0 0 0 11.6 0l.4.3c-.5.3-1.1.6-1.7.8l1.1 1.5a15.7 15.7 0 0 0 4.7-2.4c.4-3.7-.7-6.9-2.8-9.7ZM8.4 13.4c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm7.2 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg></a>
+    <a href="[LINKEDIN_URL]" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 3.5A2.1 2.1 0 1 1 4.5 7.7a2.1 2.1 0 0 1 0-4.2ZM2.8 9h3.4v12H2.8V9Zm5.5 0h3.2v1.6h.1c.4-.8 1.5-1.9 3.5-1.9 3.7 0 4.4 2.4 4.4 5.6V21h-3.4v-5.9c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H8.3V9Z"/></svg></a>
+    <a href="[YOUTUBE_URL]" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.1a2.7 2.7 0 0 0-1.9-1.9C17.4 5.8 12 5.8 12 5.8s-5.4 0-7.1.4A2.7 2.7 0 0 0 3 8.1 28 28 0 0 0 2.6 12c0 1.3.1 2.7.4 3.9a2.7 2.7 0 0 0 1.9 1.9c1.7.4 7.1.4 7.1.4s5.4 0 7.1-.4a2.7 2.7 0 0 0 1.9-1.9c.3-1.2.4-2.6.4-3.9s-.1-2.7-.4-3.9ZM10.2 15.1V8.9l5.3 3.1-5.3 3.1Z"/></svg></a>
+    <a href="[TIKTOK_URL]" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h2.8c.3 1.7 1.2 3 2.7 3.8v2.8c-1.2-.1-2.3-.5-3.2-1.1v6.2a5.3 5.3 0 1 1-4.5-5.2v2.9a2.5 2.5 0 1 0 1.8 2.4V4.8L15 4Z"/></svg></a>
+    <a href="[GITHUB_URL]" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8a9.5 9.5 0 0 0-3 18.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 0 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.3-2.2-.2-4.5-1.1-4.5-4.8 0-1.1.4-2 1-2.7-.1-.2-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.4 9.4 0 0 1 5.1 0c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.5.1 2.7.6.7 1 1.6 1 2.7 0 3.7-2.3 4.6-4.5 4.8.3.3.6.9.6 1.8v2.7c0 .3.2.6.7.5A9.5 9.5 0 0 0 12 2.8Z"/></svg></a>
+    <a class="mail" href="mailto:[CONTACT_EMAIL]" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
+  </div>
+</div></nav>
+
+<main>
+<section class="hero"><div class="wrap">
+  <div class="logo">ZORTA</div>
+  <h1>Build More. Switch Less.</h1>
+  <div class="soon">● COMING SOON</div>
+  <p class="one">Build. Work. Collaborate. Network. Earn — in one ecosystem.</p>
+</div></section>
+
+<section class="about reveal"><div class="wrap aboutbox">
+  <div class="eyebrow">01 / ZORTA</div><h2>One place to keep building.</h2>
+  <p>Zorta brings your work, projects, people, opportunities, communities, and rewards into one ecosystem. Whether you're a student, freelancer, creator, developer, or founder, you can <span class="quote">build, collaborate, grow, and earn</span> without constantly switching apps. Your profile becomes proof of what you build — <span class="quote">one platform. Infinite possibilities.</span></p>
+</div></section>
+
+<section class="wow reveal"><div class="wrap"><div class="wowbox"><div class="scan"></div><div class="wowword">BUILD <span>MORE.</span><br>SWITCH <span>LESS.</span></div></div></div></section>
+
+<section class="arcade" id="arcade"><div class="wrap">
+  <div class="arc-head reveal"><div><div class="eyebrow">02 / THE BUILDER'S ARCADE</div><h2>Practice being<br>a Zorta builder.</h2></div>
+  <div class="profile"><div class="profiletop"><b>BUILDER PROFILE</b><span id="rank">Curious Builder</span></div><div class="meter"><i id="rankbar"></i></div><small><b id="rep">0</b> Reputation · <b id="coins">0</b> Zorta Coins · 🔥 <b id="streak">0</b> Build Streak</small><div id="streakmsg" class="danger" style="margin-top:7px"></div></div></div>
+
+  <div class="daily reveal"><div class="dailyhead"><div><div class="eyebrow">DAILY BUILDS</div><h3>New every day.</h3></div><div class="reset">NEXT RESET <span id="reset">--:--:--</span></div></div>
+    <div class="dailygrid">
+      <article class="card dailygame"><h3>Daily Word Build</h3><div class="desc">Decode today's 5-letter Zorta word. Six builds. One puzzle.</div><div id="wordgame" class="gameui"></div></article>
+      <article class="card dailygame"><h3>Daily Signal</h3><div class="desc">Find the four tiles that belong to the same build signal.</div><div id="logicgame" class="gameui"></div></article>
+    </div>
+  </div>
+
+  <div class="board reveal"><div class="boardhead"><b>FOUNDERS' BOARD</b><div class="tabs"><button id="weekly" class="active">WEEKLY</button><button id="life">LIFETIME</button></div></div>
+  <table><tbody id="boardrows"></tbody></table></div>
+
+  <div class="games reveal" id="games"></div>
+
+  <div class="canvaswrap reveal"><div class="eyebrow">03 / BUILD TOGETHER</div><div class="card"><h3>THE BUILD WALL</h3><div class="desc">A mural the Zorta network builds one pixel at a time. <b>Zorta Coins</b> can become rewards such as gift cards, Nitro, game currency and more.</div>
+    <div class="canvasbox" style="margin-top:15px"><div id="pixelcanvas" class="pixelcanvas"></div><div class="palette"><b>NEXT BUILD SLOT</b><div id="cooldown" style="font-size:28px;margin:8px 0;color:#d5b8ff">READY</div><small class="notice">One pixel per cooldown. True shared multiplayer sync needs a backend/WebSocket or a service such as Firebase/Supabase. This build uses local persistence through the swappable <span class="mono">saveCanvasState()</span> / <span class="mono">loadCanvasState()</span> functions.</small><div class="colors" id="colors"></div></div></div>
+  </div></div>
+</div></section>
+
+<section class="community reveal" id="wait"><div class="wrap communitybox">
+  <div class="discordbox"><div class="discordline"><div class="discordmark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 5.1A16.1 16.1 0 0 0 15.7 4l-.5 1a14 14 0 0 0-6.4 0l-.5-1a16.1 16.1 0 0 0-3.8 1.1C2.1 8.4 1.4 11.6 1.7 14.8a15.7 15.7 0 0 0 4.7 2.4l1.1-1.5c-.6-.2-1.2-.5-1.7-.8l.4-.3a11.3 11.3 0 0 0 11.6 0l.4.3c-.5.3-1.1.6-1.7.8l1.1 1.5a15.7 15.7 0 0 0 4.7-2.4c.4-3.7-.7-6.9-2.8-9.7ZM8.4 13.4c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm7.2 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg></div><div><div class="eyebrow" style="margin-bottom:4px">MOST ACTIVE ON DISCORD</div><h3>Come hang out with us.</h3></div></div>
+  <p>Build updates, community discussions, early access, giveaways and whatever we're working on next happen there first.</p>
+  <a class="discordbtn" href="[DISCORD_INVITE_URL]">JOIN DISCORD ↗</a></div>
+  <div class="waitbox"><div><div class="eyebrow">COMING SOON</div><h3>Be there when Zorta ships.</h3><p>Not on Discord? Leave your email and we'll keep you posted.</p></div><button class="btn primary" type="button" data-open-waitlist>ENTER EMAIL</button></div>
+</div></section>
+</main>
+
+<footer><div class="wrap foot"><div><b style="color:#fff;letter-spacing:.12em">ZORTA</b><div>Build More. Switch Less.</div><div>Coming Soon · 2026</div></div><div class="socials" aria-label="Zorta social links">
+<a href="[INSTAGRAM_URL]" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.8" r="1.1"/></svg></a><a href="[X_TWITTER_URL]" aria-label="X"><svg viewBox="0 0 24 24"><path d="M5 4h3.7l3.35 4.9L15.8 4H19l-5.35 7.05L19.5 20h-3.7l-3.75-5.45L7.7 20H4.5l5.55-7.6L5 4Z"/></svg></a><a href="[DISCORD_INVITE_URL]" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M19.5 5.1A16.1 16.1 0 0 0 15.7 4l-.5 1a14 14 0 0 0-6.4 0l-.5-1a16.1 16.1 0 0 0-3.8 1.1C2.1 8.4 1.4 11.6 1.7 14.8a15.7 15.7 0 0 0 4.7 2.4l1.1-1.5c-.6-.2-1.2-.5-1.7-.8l.4-.3a11.3 11.3 0 0 0 11.6 0l.4.3c-.5.3-1.1.6-1.7.8l1.1 1.5a15.7 15.7 0 0 0 4.7-2.4c.4-3.7-.7-6.9-2.8-9.7ZM8.4 13.4c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm7.2 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8 2 1.8 2-.8 2-1.8 2Z"/></svg></a><a href="[LINKEDIN_URL]" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.5 3.5A2.1 2.1 0 1 1 4.5 7.7a2.1 2.1 0 0 1 0-4.2ZM2.8 9h3.4v12H2.8V9Zm5.5 0h3.2v1.6h.1c.4-.8 1.5-1.9 3.5-1.9 3.7 0 4.4 2.4 4.4 5.6V21h-3.4v-5.9c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H8.3V9Z"/></svg></a><a href="[YOUTUBE_URL]" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M21 8.1a2.7 2.7 0 0 0-1.9-1.9C17.4 5.8 12 5.8 12 5.8s-5.4 0-7.1.4A2.7 2.7 0 0 0 3 8.1 28 28 0 0 0 2.6 12c0 1.3.1 2.7.4 3.9a2.7 2.7 0 0 0 1.9 1.9c1.7.4 7.1.4 7.1.4s5.4 0 7.1-.4a2.7 2.7 0 0 0 1.9-1.9c.3-1.2.4-2.6.4-3.9s-.1-2.7-.4-3.9ZM10.2 15.1V8.9l5.3 3.1-5.3 3.1Z"/></svg></a><a href="[TIKTOK_URL]" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M15 4h2.8c.3 1.7 1.2 3 2.7 3.8v2.8c-1.2-.1-2.3-.5-3.2-1.1v6.2a5.3 5.3 0 1 1-4.5-5.2v2.9a2.5 2.5 0 1 0 1.8 2.4V4.8L15 4Z"/></svg></a><a href="[GITHUB_URL]" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2.8a9.5 9.5 0 0 0-3 18.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 0 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.3-2.2-.2-4.5-1.1-4.5-4.8 0-1.1.4-2 1-2.7-.1-.2-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.4 9.4 0 0 1 5.1 0c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.5.1 2.7.6.7 1 1.6 1 2.7 0 3.7-2.3 4.6-4.5 4.8.3.3.6.9.6 1.8v2.7c0 .3.2.6.7.5A9.5 9.5 0 0 0 12 2.8Z"/></svg></a><a class="mail" href="mailto:[CONTACT_EMAIL]" aria-label="Email"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a></div></div></footer>
+
+<div id="waitModal" class="wait-modal" aria-hidden="true"><div class="wait-panel" role="dialog" aria-modal="true" aria-labelledby="waitTitle"><div class="wait-head"><div><div class="eyebrow">ZORTA / EARLY ACCESS</div><h2 id="waitTitle">Pick your way in.</h2></div><button class="wait-close" id="waitClose" type="button" aria-label="Close waitlist">×</button></div><div class="wait-options"><div class="wait-option"><h3>JOIN THE DISCORD</h3><p>Our most active community. Updates, giveaways, early access and more happen there.</p><a class="wait-discord" href="[DISCORD_INVITE_URL]">JOIN DISCORD ↗</a></div><div class="wait-option"><h3>ENTER YOUR EMAIL</h3><p>Prefer email? Leave it here and we'll let you know when Zorta ships.</p><form class="wait-email" id="waitlistForm"><input id="waitlistEmail" type="email" autocomplete="email" placeholder="your@email.com" aria-label="Email address" required><button class="btn primary" type="submit">JOIN</button></form><div id="waitStatus" class="wait-status" role="status" aria-live="polite"></div></div></div></div></div>
+
+<div id="modal" class="game-modal hidden"><div class="gamepanel"><div class="gamebar"><div><h2 id="mtitle"></h2><div id="gameTimerLabel" class="game-timer-label">SPRINT TIMER</div></div>
+    <div style="display:flex;align-items:center;gap:8px"><div id="gameTimer" class="game-timer">--:--</div><button class="close" onclick="closeGame()">BACK TO ARCADE</button></div></div><div id="mstage" class="stage"></div><div id="mfoot"></div></div></div>
+
+<script type="module">
+import { API_BASE, api, getUserId, submitWaitlist } from "./api.js";
+const BUILDER_ID = getUserId();
+const waitModal=document.querySelector("#waitModal"), waitStatus=document.querySelector("#waitStatus"), waitForm=document.querySelector("#waitlistForm"), waitEmail=document.querySelector("#waitlistEmail");
+function openWaitlist(){waitModal.classList.add("open");waitModal.setAttribute("aria-hidden","false");waitStatus.textContent="";waitStatus.className="wait-status";setTimeout(()=>waitEmail.focus(),60)}
+function closeWaitlist(){waitModal.classList.remove("open");waitModal.setAttribute("aria-hidden","true")}
+document.querySelectorAll("[data-open-waitlist]").forEach(b=>b.addEventListener("click",openWaitlist));
+document.querySelector("#waitClose").addEventListener("click",closeWaitlist);
+waitModal.addEventListener("click",e=>{if(e.target===waitModal)closeWaitlist()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&waitModal.classList.contains("open"))closeWaitlist()});
+waitForm.addEventListener("submit",async e=>{e.preventDefault();const email=waitEmail.value.trim().toLowerCase();if(!waitForm.checkValidity())return;const btn=waitForm.querySelector("button");btn.disabled=true;btn.textContent="ADDING…";waitStatus.textContent="";waitStatus.className="wait-status";try{const result=await submitWaitlist(email);if(result?.ok){waitStatus.textContent="YOU'RE ON THE LIST. We'll let you know when Zorta ships.";waitStatus.className="wait-status success";waitEmail.value=""}else if(result?.error==="already_registered"){waitStatus.textContent="That email is already on the list.";waitStatus.className="wait-status"}else{waitStatus.textContent="Couldn't add you right now. Please try again.";waitStatus.className="wait-status error"}}catch{waitStatus.textContent="Couldn't reach the waitlist right now. Please try again.";waitStatus.className="wait-status error"}finally{btn.disabled=false;btn.textContent="JOIN"}});
+
+/* ZORTA arcade — all state is local. Replace placeholder social URLs and waitlist endpoint before launch. */
+const SKEY="zorta-builder-v3", data=JSON.parse(localStorage.getItem(SKEY)||'{}');
+Object.assign(data,{rep:data.rep||0,coins:data.coins||0,streak:data.streak||0,lastDay:data.lastDay||"",best:data.best||{},daily:data.daily||{}});
+const ranks=[["Curious Builder",0],["Contributor",150],["Shipper",400],["Founder",900],["Legend",1800]];
+function save(){localStorage.setItem(SKEY,JSON.stringify(data));renderProfile()}
+function today(){return new Date().toISOString().slice(0,10)}
+function addRep(n,game){data.rep+=n;data.coins+=Math.max(1,Math.floor(n/5));data.best[game]=Math.max(data.best[game]||0,n);if(data.lastDay!==today()){let y=new Date();y.setDate(y.getDate()-1);let prev=y.toISOString().slice(0,10);data.streak=data.lastDay===prev?data.streak+1:1;data.lastDay=today()}save()}
+function renderProfile(){
+ let r=ranks[0],next=ranks[1];for(let i=0;i<ranks.length;i++)if(data.rep>=ranks[i][1]){r=ranks[i];next=ranks[i+1]}
+ document.querySelector("#rank").textContent=r[0];document.querySelector("#rep").textContent=data.rep;document.querySelector("#coins").textContent=data.coins;document.querySelector("#streak").textContent=data.streak;
+ let pct=next?Math.min(100,(data.rep-r[1])/(next[1]-r[1])*100):100;document.querySelector("#rankbar").style.width=pct+"%";
+ document.querySelector("#streakmsg").textContent=data.streak>=3?`${next?next[1]-data.rep+" more days to "+next[0]:"Legend status"} · don't break your Build Streak.`:"Build today to start your Build Streak.";
+}
+function resetClock(){let n=new Date();let t=new Date(n);t.setHours(24,0,0,0);let s=Math.max(0,t-n)/1000;document.querySelector("#reset").textContent=[s/3600,s/60%60,s%60].map(x=>String(Math.floor(x)).padStart(2,"0")).join(":")}
+setInterval(resetClock,1000);resetClock();renderProfile();
+
+const games=[
+["Ship It","Ship the feature request before the deploy window closes.","SHIP ↗"],
+["Recall the Stack","Remember the build history and reconstruct the sequence.","RECALL ↗"],
+["Pitch Sprint","Type the founder's words before the opportunity disappears.","PITCH ↗"],
+["Spot the Bug","Catch the one signal that breaks the pattern.","DEBUG ↗"],
+["Hit the Deadline","Submit inside the shrinking deploy window.","DEPLOY ↗"],
+["Find the Real One","Identify the verified opportunity hiding among decoys.","VERIFY ↗"]
+];
+document.querySelector("#games").innerHTML=games.map((g,i)=>`<article class="card"><div class="eyebrow">BUILD ${String(i+1).padStart(2,"0")}</div><h3>${g[0]}</h3><div class="preview preview-${i}" aria-hidden="true"></div><div class="desc">${g[1]}</div><div class="best">BEST · ${data.best[g[0]]||0} REPUTATION</div><button class="buildbtn" onclick="openGame(${i})">${g[2]}</button></article>`).join("");
+
+function openGame(i){ stopGameTimer();
+ const m=document.querySelector("#modal"),stage=document.querySelector("#mstage"),foot=document.querySelector("#mfoot");m.classList.remove("hidden");document.querySelector("#mtitle").textContent=games[i][0];startGameTimer(i);
+ let n=3;stage.innerHTML=`<div class="count">${n}</div>`;let c=setInterval(()=>{n--;stage.querySelector(".count").textContent=n||"BUILD";if(n<=0){clearInterval(c);startGame(i)}},700);
+ foot.innerHTML=`<p class="notice">Compiling your build…</p>`;
+}
+function finish(name,score,msg="Shipped"){ stopGameTimer();
+ const stage=document.querySelector("#mstage");addRep(score,name);
+ api("/api/score",{method:"POST",body:JSON.stringify({
+   userId:BUILDER_ID,displayName:"Builder #"+BUILDER_ID.slice(-4),
+   reputationDelta:score,source:name
+ })});
+ stage.innerHTML=`<div class="result"><div class="eyebrow">${msg}</div><div class="big">+${score}</div><p>REPUTATION / BUILD POINTS</p><p>${data.best[name]===score?"NEW BEST · ":""}Your build is recorded.</p></div>`;
+ document.querySelector("#mfoot").innerHTML=`<div class="gamecontrols"><button class="btn primary" onclick="openGame(${games.findIndex(x=>x[0]===name)})">REBUILD ↗</button><button class="btn" onclick="closeGame()">BACK TO ARCADE</button></div>`;
+}
+function closeGame(){stopGameTimer();document.querySelector("#modal").classList.add("hidden")}
+
+function startGame(i){
+ const stage=document.querySelector("#mstage"),foot=document.querySelector("#mfoot"),name=games[i][0];stage.innerHTML="";
+ if(i===0){let score=0,time=2600;function spawn(){if(time<=600){finish(name,score,"SESSION CLOSED");return}stage.innerHTML=`<button class="target" aria-label="Ship feature"></button>`;let b=stage.getBoundingClientRect();let t=stage.querySelector(".target");t.style.left=Math.random()*(b.width-70)+"px";t.style.top=Math.random()*(b.height-80)+"px";t.onclick=()=>{score+=10;time-=130;stage.animate([{transform:"scale(1)"},{transform:"scale(1.04)"},{transform:"scale(1)"}],{duration:220});spawn()};setTimeout(()=>{if(stage.contains(t))spawn()},time)}spawn();foot.innerHTML=`<p class="notice">Ship each request before the deploy window. Faster chains raise the difficulty.</p>`}
+ else if(i===1){let seq=[],input=[],level=3,score=0;function round(){input=[];seq.push(Math.floor(Math.random()*9));stage.innerHTML=`<div class="logic" id="mem"></div>`;let mem=[...Array(9)].map((_,x)=>`<button data-x="${x}">${x+1}</button>`).join("");stage.querySelector("#mem").innerHTML=mem;seq.forEach((x,k)=>setTimeout(()=>stage.querySelector(`[data-x="${x}"]`).classList.add("selected"),k*360));setTimeout(()=>{stage.querySelectorAll("button").forEach(b=>b.classList.remove("selected"));stage.querySelectorAll("button").forEach(b=>b.onclick=()=>{input.push(+b.dataset.x);b.classList.add("selected");if(input[input.length-1]!==seq[input.length-1])finish(name,score,"REVERTED");else if(input.length===seq.length){score+=20;level++;if(level>8)finish(name,score);else setTimeout(round,350)}})},seq.length*360+500)}round();foot.innerHTML=`<p class="notice">Reconstruct the build history in order. Each merged round adds another step.</p>`}
+ else if(i===2){let words=["SHIP","BUILD","MERGE","CRAFT","GIG","FOUNDER","NETWORK","DEPLOY"];let idx=0,score=0;function next(){if(idx>=words.length){finish(name,score);return}let w=words[Math.floor(Math.random()*words.length)],shown=w.slice(0,Math.max(2,w.length-2));stage.innerHTML=`<div class="center"><div class="eyebrow">PITCH SPRINT</div><div style="font-size:38px;font-weight:1000">${w}</div><input id="type" autocomplete="off" style="margin-top:20px;background:#17101f;border:1px solid #473258;color:#fff;padding:13px;border-radius:9px;text-align:center" autofocus></div>`;let inp=stage.querySelector("#type");inp.oninput=()=>{if(inp.value.toUpperCase()===w){score+=10+idx*2;idx++;next()}};inp.focus()}next();foot.innerHTML=`<p class="notice">Type the flashed build signal before it vanishes. Later signals are faster.</p>`}
+ else if(i===3){let score=0,round=0;function bug(){round++;let good=Math.floor(Math.random()*16);stage.innerHTML=`<div class="logic" style="max-width:520px">${[...Array(16)].map((_,x)=>`<button data-x="${x}">${x===good?"△":"○"}</button>`).join("")}</div>`;stage.querySelectorAll("button").forEach(b=>b.onclick=()=>{if(+b.dataset.x===good){score+=12+round;bug()}else finish(name,score,"REVERTED")});if(round>8)finish(name,score)}bug();foot.innerHTML=`<p class="notice">One pattern is broken. Catch it before the build ships. Decoys increase each round.</p>`}
+ else if(i===4){let score=0,round=0;function beat(){round++;let start=performance.now(),windowMs=Math.max(380,1200-round*70);stage.innerHTML=`<div class="center"><div class="eyebrow">DEPLOY WINDOW</div><div id="bar" class="meter" style="width:min(520px,80vw);height:22px"><i></i></div><button id="submit" class="btn primary" style="margin-top:25px">SUBMIT BUILD</button></div>`;let raf;function tick(t){let p=Math.min(1,(t-start)/windowMs);stage.querySelector("#bar i").style.width=p*100+"%";if(p<1)raf=requestAnimationFrame(tick);else finish(name,score,"SESSION CLOSED")}requestAnimationFrame(tick);stage.querySelector("#submit").onclick=()=>{cancelAnimationFrame(raf);score+=20+round*3;beat()}}beat();foot.innerHTML=`<p class="notice">Hit submit inside the shrinking window — early or late closes the build.</p>`}
+ else {let score=0,round=0;function cards(){round++;let real=Math.floor(Math.random()*6);stage.innerHTML=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(560px,90%)">${[...Array(6)].map((_,x)=>`<button class="card" data-x="${x}" style="min-height:100px"><b>${x===real?"VERIFIED":"OPPORTUNITY"}</b><small style="display:block;color:#8f8499;margin-top:8px">BUILD #${Math.floor(Math.random()*900+100)}</small></button>`).join("")}</div>`;stage.querySelectorAll("button").forEach(b=>b.onclick=()=>{if(+b.dataset.x===real){score+=15+round*3;round<8?cards():finish(name,score)}else finish(name,score,"REVERTED")})}cards();foot.innerHTML=`<p class="notice">Spot the verified build. More decoys enter the network as your accuracy improves.</p>`}
+}
+
+/* DAILY WORD BUILD */
+const words=["BUILD","CRAFT","MERGE","STACK","SHIPS","GIGSY","ZORTA","TEAMS","CODEX","PITCH"];
+const dailyWord=words[Math.floor(new Date(today()).getTime()/86400000)%words.length];
+function renderWord(){let d=data.daily.word||{rows:[],done:false};let el=document.querySelector("#wordgame");el.innerHTML=`<div class="wordgrid">${[...Array(30)].map((_,i)=>`<div class="tile ${d.rows[Math.floor(i/5)]?.[Math.floor(i%5)]?.c||""}">${d.rows[Math.floor(i/5)]?.[Math.floor(i%5)]?.l||""}</div>`).join("")}</div>${d.done?`<div class="notice">BUILD LOCKED · Come back tomorrow for a new word.</div>`:`<div class="keyboard">${"QWERTYUIOPASDFGHJKLZXCVBNM".split("").map(k=>`<button class="key" onclick="typeWord('${k}')">${k}</button>`).join("")}<button class="key" onclick="backWord">⌫</button><button class="key" onclick="enterWord()">↵</button></div><div class="notice" id="wordmsg">Build a 5-letter word · ${6-d.rows.length} attempts left</div><button class="buildbtn" style="margin-top:10px" onclick="enterWord()">DECODE ↗</button>`}`}
+function typeWord(k){let d=data.daily.word||{rows:[],cur:"",done:false};if(!d.done&&d.cur.length<5){d.cur+=k;data.daily.word=d;save();renderWord()}}
+function enterWord(){let d=data.daily.word||{rows:[],cur:"",done:false};if(d.cur.length!==5)return;let guess=d.cur.toUpperCase();let row=[...guess].map((l,i)=>({l,c:l===dailyWord[i]?"good":dailyWord.includes(l)?"mid":"bad"}));d.rows.push(row);d.cur="";if(guess===dailyWord||d.rows.length>=6){d.done=true;addRep(40,"Daily Word Build")}data.daily.word=d;save();renderWord()}
+renderWord();
+
+/* DAILY SIGNAL — four matching concepts among sixteen tiles. */
+const signalSets=[["SHIP","MERGE","DEPLOY","BUILD"],["GIG","TALENT","FOUNDER","PROJECT"],["CODE","STACK","COMMIT","REPO"]];
+let set=signalSets[Math.floor(new Date(today()).getTime()/86400000)%signalSets.length];
+let pool=[...set,...["PITCH","COIN","EVENT","NETWORK","BADGE","STARTUP","DESIGN","COMMUNITY","BOT","HIRE","CRAFT","LAUNCH"]].sort(()=>Math.random()-.5);
+function renderLogic(){let d=data.daily.logic||{sel:[],done:false};document.querySelector("#logicgame").innerHTML=d.done?`<div class="notice">SIGNAL MERGED ✓<br>Return tomorrow for a new daily build.</div>`:`<div class="logic">${pool.map((x,i)=>`<button class="${d.sel.includes(i)?"selected":""}" onclick="selLogic(${i})">${x}</button>`).join("")}</div><div class="notice">Select the four tiles that share one build signal.</div><button class="buildbtn" style="margin-top:10px" onclick="selLogicSubmit()">MERGE ↗</button>`}
+function selLogicSubmit(){let d=data.daily.logic||{sel:[],done:false};if(d.sel.length!==4)return;
+ if(d.sel.every(x=>set.includes(pool[x]))){d.done=true;addRep(35,"Daily Signal");api("/api/score",{method:"POST",body:JSON.stringify({userId:BUILDER_ID,displayName:"Builder #"+BUILDER_ID.slice(-4),reputationDelta:35,source:"Daily Signal"})});}
+ else d.sel=[];data.daily.logic=d;save();renderLogic()}
+function selLogic(i){let d=data.daily.logic||{sel:[],done:false};if(d.done)return;if(d.sel.includes(i))d.sel=d.sel.filter(x=>x!==i);else if(d.sel.length<4)d.sel.push(i);data.daily.logic=d;save();renderLogic()}
+renderLogic();
+
+/* BUILD WALL. Frontend is complete; true multiplayer requires backend sync. */
+const COLORS=["#8b5cf6","#a855f7","#d946ef","#f0abfc","#67e8f9","#22d3ee","#f8fafc","#17121f","#ef4444","#f59e0b","#22c55e","#3b82f6"];
+const ckey="zorta-wall-v1",canvasState=JSON.parse(localStorage.getItem(ckey)||"{}");canvasState.cells=canvasState.cells||{};
+let selected=0,lastPlace=+(localStorage.getItem("zorta-place")||0);
+function saveCanvasState(){localStorage.setItem(ckey,JSON.stringify(canvasState))}
+function loadCanvasState(){return canvasState}
+const pc=document.querySelector("#pixelcanvas");for(let i=0;i<4096;i++){let b=document.createElement("button");b.className="px";b.dataset.i=i;b.style.background=canvasState.cells[i]||COLORS[7];b.onclick=()=>placePixel(i);pc.appendChild(b)}
+document.querySelector("#colors").innerHTML=COLORS.map((c,i)=>`<button class="color ${i===0?"sel":""}" style="background:${c}" onclick="selectColor(${i},this)"></button>`).join("");
+function selectColor(i,b){selected=i;document.querySelectorAll(".color").forEach(x=>x.classList.remove("sel"));b.classList.add("sel")}
+function placePixel(i){let now=Date.now(),wait=45000;if(now-lastPlace<wait)return;canvasState.cells[i]=COLORS[selected];saveCanvasState();document.querySelector(`.px[data-i="${i}"]`).style.background=COLORS[selected];lastPlace=now;localStorage.setItem("zorta-place",lastPlace);addRep(3,"Build Wall")}
+setInterval(()=>{let left=Math.max(0,45000-(Date.now()-lastPlace));document.querySelector("#cooldown").textContent=left?Math.ceil(left/1000)+"s":"READY"},500); 
+
+/* Placeholder leaderboard: replace with API/WebSocket once Zorta launches. */
+let boardMode="weekly";function board(){let rows=[["01","You",data.rep],["02","Curious Builder",780],["03","Night Shipper",650],["04","Pixel Founder",520],["05","Stack Crafter",410]];if(boardMode==="life")rows=rows.map((r,i)=>[r[0],r[1],r[2]+i*420]);document.querySelector("#boardrows").innerHTML=rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]} REP</td></tr>`).join("")}board();document.querySelector("#life").onclick=()=>{boardMode="life";life.classList.add("active");weekly.classList.remove("active");board()};
+
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add("on")),{threshold:.08});document.querySelectorAll(".reveal").forEach(e=>io.observe(e));
+
+document.addEventListener("keydown", e=>{
+  const wordEl=document.querySelector("#wordgame");
+  if(!wordEl || !wordEl.getBoundingClientRect().height) return;
+  const tag=(document.activeElement?.tagName||"").toLowerCase();
+  if(tag==="input" || tag==="textarea" || tag==="button") return;
+  const k=e.key.toUpperCase();
+  if(/^[A-Z]$/.test(k)){e.preventDefault();typeWord(k)}
+  else if(e.key==="Backspace"){e.preventDefault();let d=data.daily.word||{rows:[],cur:"",done:false};if(!d.done){d.cur=d.cur.slice(0,-1);data.daily.word=d;save();renderWord()}}
+  else if(e.key==="Enter"){e.preventDefault();enterWord()}
+});
+
+async function loadBoard(scope="weekly"){
+ const result=await api(`/api/leaderboard?scope=${scope}`);
+ if(result?.entries){
+   document.querySelector("#boardrows").innerHTML=result.entries.slice(0,20).map((r,i)=>
+    `<tr><td>${i+1}</td><td>${r.displayName||"Builder #"+String(r.userId||"").slice(-4)}</td><td>${r.reputation||0} REP</td></tr>`).join("");
+   return;
+ }
+ board();
+}
+loadBoard("weekly");
+document.querySelector("#weekly").onclick=()=>{boardMode="weekly";weekly.classList.add("active");life.classList.remove("active");loadBoard("weekly")};
+document.querySelector("#life").onclick=()=>{boardMode="life";life.classList.add("active");weekly.classList.remove("active");loadBoard("lifetime")};
+
+async function syncCanvas(){
+ const result=await api("/api/canvas-state");
+ if(result?.pixels){
+   result.pixels.forEach(p=>{
+     const idx=p.y*64+p.x;
+     const cell=document.querySelector(`.px[data-i="${idx}"]`);
+     if(cell) cell.style.background=p.color;
+     canvasState.cells[idx]=p.color;
+   });
+   saveCanvasState();
+ }
+}
+syncCanvas(); setInterval(syncCanvas,4000);
+
+const localPlace=placePixel;
+placePixel=async function(i){
+ let now=Date.now(), wait=120000;
+ if(now-lastPlace<wait)return;
+ const x=i%64,y=Math.floor(i/64),color=COLORS[selected];
+ const result=await api("/api/canvas-place",{method:"POST",body:JSON.stringify({x,y,color,userId:BUILDER_ID})});
+ if(result?.error==="cooldown"){
+   lastPlace=now-(120000-(result.retryAfterMs||120000)); localStorage.setItem("zorta-place",lastPlace); return;
+ }
+ if(result?.ok){localPlace(i)}
+ else localPlace(i); // silent local fallback
+}
+setInterval(()=>{let left=Math.max(0,120000-(Date.now()-lastPlace));document.querySelector("#cooldown").textContent=left?Math.ceil(left/1000)+"s":"READY"},500);
+
+const GAME_DURATIONS = [30, 45, 45, 40, 35, 40];
+let gameTimerInterval = null, gameTimerEndsAt = 0, gameTimerGame = -1, gameTimedOut = false;
+
+function formatGameTime(sec){
+  sec=Math.max(0,Math.ceil(sec));
+  return `00:${String(sec).padStart(2,"0")}`;
+}
+function stopGameTimer(){
+  if(gameTimerInterval){clearInterval(gameTimerInterval);gameTimerInterval=null;}
+}
+function startGameTimer(i){
+  stopGameTimer();
+  gameTimerGame=i; gameTimedOut=false;
+  const el=document.querySelector("#gameTimer"), label=document.querySelector("#gameTimerLabel");
+  const duration=GAME_DURATIONS[i]||40;
+  gameTimerEndsAt=Date.now()+duration*1000;
+  label.textContent=i===4?"DEPLOY WINDOW":i===0?"SPRINT TIMER":"BUILD WINDOW";
+  el.classList.remove("warn","done");
+  function tick(){
+    const left=Math.max(0,(gameTimerEndsAt-Date.now())/1000);
+    el.textContent=formatGameTime(left);
+    if(left<=10 && left>0)el.classList.add("warn");
+    if(left<=0){
+      stopGameTimer(); gameTimedOut=true; el.textContent="00:00"; el.classList.remove("warn"); el.classList.add("done");
+      if(document.querySelector("#modal") && !document.querySelector("#modal").classList.contains("hidden")){
+        finish(games[i][0], Math.max(0, Math.floor((data.best[games[i][0]]||0)*0.08)), "SESSION CLOSED");
+      }
+    }
+  }
+  tick(); gameTimerInterval=setInterval(tick,100);
+}
+</script>
 </body>
 </html>

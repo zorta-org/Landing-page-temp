@@ -1,1 +1,0 @@
-export type User = { id:string; user_id?:string; username:string; display_name:string; avatar?:string; bio?:string; reputation:number; skills?:string[]; interests?:string[]; roles?:string[]; onboarding_complete?:boolean; platform_role?:'user'|'moderator'|'admin'; cover?:string; location?:string; website?:string; availability?:string; pronouns?:string; };
