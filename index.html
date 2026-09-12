@@ -106,7 +106,7 @@ footer{border-top:1px solid #251b30;padding:35px 0;color:#94899d}.foot{display:f
 
 <section class="arcade" id="arcade"><div class="wrap">
   <div class="arc-head reveal"><div><div class="eyebrow">02 / THE BUILDER'S ARCADE</div><h2>Practice being<br>a Zorta builder.</h2></div>
-  <div class="profile"><div class="profiletop"><b>BUILDER PROFILE</b><span id="rank">Curious Builder</span></div><div class="meter"><i id="rankbar"></i></div><small><b id="rep">0</b> Reputation · <b id="coins">0</b> Zorta Coins · 🔥 <b id="streak">0</b> Build Streak</small><div id="streakmsg" class="danger" style="margin-top:7px"></div></div></div>
+  <div class="profile"><div class="profiletop"><b>BUILDER PROFILE</b><span><b id="level">LV 1</b> · <span id="rank">Curious Builder</span></span></div><div class="meter"><i id="rankbar"></i></div><small><b id="rep">0</b> Reputation · <b id="coins">0</b> Zorta Coins · 🔥 <b id="streak">0</b> Build Streak</small><div id="streakmsg" class="danger" style="margin-top:7px"></div></div></div>
 
   <div class="daily reveal"><div class="dailyhead"><div><div class="eyebrow">DAILY BUILDS</div><h3>New every day.</h3></div><div class="reset">NEXT RESET <span id="reset">--:--:--</span></div></div>
     <div class="dailygrid">
@@ -120,8 +120,8 @@ footer{border-top:1px solid #251b30;padding:35px 0;color:#94899d}.foot{display:f
 
   <div class="games reveal" id="games"></div>
 
-  <div class="canvaswrap reveal"><div class="eyebrow">03 / BUILD TOGETHER</div><div class="card"><h3>THE BUILD WALL</h3><div class="desc">A mural the Zorta network builds one pixel at a time. <b>Zorta Coins</b> can become rewards such as gift cards, Nitro, game currency and more.</div>
-    <div class="canvasbox" style="margin-top:15px"><div id="pixelcanvas" class="pixelcanvas"></div><div class="palette"><b>NEXT BUILD SLOT</b><div id="cooldown" style="font-size:28px;margin:8px 0;color:#d5b8ff">READY</div><small class="notice">One pixel per cooldown. True shared multiplayer sync needs a backend/WebSocket or a service such as Firebase/Supabase. This build uses local persistence through the swappable <span class="mono">saveCanvasState()</span> / <span class="mono">loadCanvasState()</span> functions.</small><div class="colors" id="colors"></div></div></div>
+  <div class="canvaswrap reveal"><div class="eyebrow">03 / BUILD TOGETHER</div><div class="card"><h3>THE BUILD WALL</h3><div class="desc">A shared 64 × 64 mural. Every placement is written to Zorta's server and appears for everyone. One build slot opens every 120 seconds.</div>
+    <div class="canvasbox" style="margin-top:15px"><div id="pixelcanvas" class="pixelcanvas"></div><div class="palette"><b>NEXT BUILD SLOT</b><div id="cooldown" style="font-size:28px;margin:8px 0;color:#d5b8ff">SYNCING</div><small class="notice" id="canvasStatus">CONNECTING TO THE SHARED WALL…</small><div class="colors" id="colors"></div></div></div>
   </div></div>
 </div></section>
 
@@ -136,194 +136,13 @@ footer{border-top:1px solid #251b30;padding:35px 0;color:#94899d}.foot{display:f
 <footer><div class="wrap foot"><div><b style="color:#fff;letter-spacing:.12em">ZORTA</b><div>Build More. Switch Less.</div><div>Coming Soon · 2026</div></div><div class="socials" aria-label="Zorta social links">
 <a href="[INSTAGRAM_URL]" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.8" r="1.1"/></svg></a><a href="[X_TWITTER_URL]" aria-label="X"><svg viewBox="0 0 24 24"><path d="M5 4h3.7l3.35 4.9L15.8 4H19l-5.35 7.05L19.5 20h-3.7l-3.75-5.45L7.7 20H4.5l5.55-7.6L5 4Z"/></svg></a><a href="[DISCORD_INVITE_URL]" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M19.5 5.1A16.1 16.1 0 0 0 15.7 4l-.5 1a14 14 0 0 0-6.4 0l-.5-1a16.1 16.1 0 0 0-3.8 1.1C2.1 8.4 1.4 11.6 1.7 14.8a15.7 15.7 0 0 0 4.7 2.4l1.1-1.5c-.6-.2-1.2-.5-1.7-.8l.4-.3a11.3 11.3 0 0 0 11.6 0l.4.3c-.5.3-1.1.6-1.7.8l1.1 1.5a15.7 15.7 0 0 0 4.7-2.4c.4-3.7-.7-6.9-2.8-9.7ZM8.4 13.4c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm7.2 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8 2 1.8 2-.8 2-1.8 2Z"/></svg></a><a href="[LINKEDIN_URL]" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.5 3.5A2.1 2.1 0 1 1 4.5 7.7a2.1 2.1 0 0 1 0-4.2ZM2.8 9h3.4v12H2.8V9Zm5.5 0h3.2v1.6h.1c.4-.8 1.5-1.9 3.5-1.9 3.7 0 4.4 2.4 4.4 5.6V21h-3.4v-5.9c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H8.3V9Z"/></svg></a><a href="[YOUTUBE_URL]" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M21 8.1a2.7 2.7 0 0 0-1.9-1.9C17.4 5.8 12 5.8 12 5.8s-5.4 0-7.1.4A2.7 2.7 0 0 0 3 8.1 28 28 0 0 0 2.6 12c0 1.3.1 2.7.4 3.9a2.7 2.7 0 0 0 1.9 1.9c1.7.4 7.1.4 7.1.4s5.4 0 7.1-.4a2.7 2.7 0 0 0 1.9-1.9c.3-1.2.4-2.6.4-3.9s-.1-2.7-.4-3.9ZM10.2 15.1V8.9l5.3 3.1-5.3 3.1Z"/></svg></a><a href="[TIKTOK_URL]" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M15 4h2.8c.3 1.7 1.2 3 2.7 3.8v2.8c-1.2-.1-2.3-.5-3.2-1.1v6.2a5.3 5.3 0 1 1-4.5-5.2v2.9a2.5 2.5 0 1 0 1.8 2.4V4.8L15 4Z"/></svg></a><a href="[GITHUB_URL]" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2.8a9.5 9.5 0 0 0-3 18.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 0 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.3-2.2-.2-4.5-1.1-4.5-4.8 0-1.1.4-2 1-2.7-.1-.2-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.4 9.4 0 0 1 5.1 0c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.5.1 2.7.6.7 1 1.6 1 2.7 0 3.7-2.3 4.6-4.5 4.8.3.3.6.9.6 1.8v2.7c0 .3.2.6.7.5A9.5 9.5 0 0 0 12 2.8Z"/></svg></a><a class="mail" href="mailto:[CONTACT_EMAIL]" aria-label="Email"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a></div></div></footer>
 
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 <div id="waitModal" class="wait-modal" aria-hidden="true"><div class="wait-panel" role="dialog" aria-modal="true" aria-labelledby="waitTitle"><div class="wait-head"><div><div class="eyebrow">ZORTA / EARLY ACCESS</div><h2 id="waitTitle">Pick your way in.</h2></div><button class="wait-close" id="waitClose" type="button" aria-label="Close waitlist">×</button></div><div class="wait-options"><div class="wait-option"><h3>JOIN THE DISCORD</h3><p>Our most active community. Updates, giveaways, early access and more happen there.</p><a class="wait-discord" href="[DISCORD_INVITE_URL]">JOIN DISCORD ↗</a></div><div class="wait-option"><h3>ENTER YOUR EMAIL</h3><p>Prefer email? Leave it here and we'll let you know when Zorta ships.</p><form class="wait-email" id="waitlistForm"><input id="waitlistEmail" type="email" autocomplete="email" placeholder="your@email.com" aria-label="Email address" required><button class="btn primary" type="submit">JOIN</button></form><div id="waitStatus" class="wait-status" role="status" aria-live="polite"></div></div></div></div></div>
 
 <div id="modal" class="game-modal hidden"><div class="gamepanel"><div class="gamebar"><div><h2 id="mtitle"></h2><div id="gameTimerLabel" class="game-timer-label">SPRINT TIMER</div></div>
-    <div style="display:flex;align-items:center;gap:8px"><div id="gameTimer" class="game-timer">--:--</div><button class="close" onclick="closeGame()">BACK TO ARCADE</button></div></div><div id="mstage" class="stage"></div><div id="mfoot"></div></div></div>
+    <div style="display:flex;align-items:center;gap:8px"><div id="gameTimer" class="game-timer">--:--</div><button class="close" id="closeGame">BACK TO ARCADE</button></div></div><div id="mstage" class="stage"></div><div id="mfoot"></div></div></div>
 
-<script type="module">
-import { API_BASE, api, getUserId, submitWaitlist } from "./api.js";
-const BUILDER_ID = getUserId();
-const waitModal=document.querySelector("#waitModal"), waitStatus=document.querySelector("#waitStatus"), waitForm=document.querySelector("#waitlistForm"), waitEmail=document.querySelector("#waitlistEmail");
-function openWaitlist(){waitModal.classList.add("open");waitModal.setAttribute("aria-hidden","false");waitStatus.textContent="";waitStatus.className="wait-status";setTimeout(()=>waitEmail.focus(),60)}
-function closeWaitlist(){waitModal.classList.remove("open");waitModal.setAttribute("aria-hidden","true")}
-document.querySelectorAll("[data-open-waitlist]").forEach(b=>b.addEventListener("click",openWaitlist));
-document.querySelector("#waitClose").addEventListener("click",closeWaitlist);
-waitModal.addEventListener("click",e=>{if(e.target===waitModal)closeWaitlist()});
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&waitModal.classList.contains("open"))closeWaitlist()});
-waitForm.addEventListener("submit",async e=>{e.preventDefault();const email=waitEmail.value.trim().toLowerCase();if(!waitForm.checkValidity())return;const btn=waitForm.querySelector("button");btn.disabled=true;btn.textContent="ADDING…";waitStatus.textContent="";waitStatus.className="wait-status";try{const result=await submitWaitlist(email);if(result?.ok){waitStatus.textContent="YOU'RE ON THE LIST. We'll let you know when Zorta ships.";waitStatus.className="wait-status success";waitEmail.value=""}else if(result?.error==="already_registered"){waitStatus.textContent="That email is already on the list.";waitStatus.className="wait-status"}else{waitStatus.textContent="Couldn't add you right now. Please try again.";waitStatus.className="wait-status error"}}catch{waitStatus.textContent="Couldn't reach the waitlist right now. Please try again.";waitStatus.className="wait-status error"}finally{btn.disabled=false;btn.textContent="JOIN"}});
-
-/* ZORTA arcade — all state is local. Replace placeholder social URLs and waitlist endpoint before launch. */
-const SKEY="zorta-builder-v3", data=JSON.parse(localStorage.getItem(SKEY)||'{}');
-Object.assign(data,{rep:data.rep||0,coins:data.coins||0,streak:data.streak||0,lastDay:data.lastDay||"",best:data.best||{},daily:data.daily||{}});
-const ranks=[["Curious Builder",0],["Contributor",150],["Shipper",400],["Founder",900],["Legend",1800]];
-function save(){localStorage.setItem(SKEY,JSON.stringify(data));renderProfile()}
-function today(){return new Date().toISOString().slice(0,10)}
-function addRep(n,game){data.rep+=n;data.coins+=Math.max(1,Math.floor(n/5));data.best[game]=Math.max(data.best[game]||0,n);if(data.lastDay!==today()){let y=new Date();y.setDate(y.getDate()-1);let prev=y.toISOString().slice(0,10);data.streak=data.lastDay===prev?data.streak+1:1;data.lastDay=today()}save()}
-function renderProfile(){
- let r=ranks[0],next=ranks[1];for(let i=0;i<ranks.length;i++)if(data.rep>=ranks[i][1]){r=ranks[i];next=ranks[i+1]}
- document.querySelector("#rank").textContent=r[0];document.querySelector("#rep").textContent=data.rep;document.querySelector("#coins").textContent=data.coins;document.querySelector("#streak").textContent=data.streak;
- let pct=next?Math.min(100,(data.rep-r[1])/(next[1]-r[1])*100):100;document.querySelector("#rankbar").style.width=pct+"%";
- document.querySelector("#streakmsg").textContent=data.streak>=3?`${next?next[1]-data.rep+" more days to "+next[0]:"Legend status"} · don't break your Build Streak.`:"Build today to start your Build Streak.";
-}
-function resetClock(){let n=new Date();let t=new Date(n);t.setHours(24,0,0,0);let s=Math.max(0,t-n)/1000;document.querySelector("#reset").textContent=[s/3600,s/60%60,s%60].map(x=>String(Math.floor(x)).padStart(2,"0")).join(":")}
-setInterval(resetClock,1000);resetClock();renderProfile();
-
-const games=[
-["Ship It","Ship the feature request before the deploy window closes.","SHIP ↗"],
-["Recall the Stack","Remember the build history and reconstruct the sequence.","RECALL ↗"],
-["Pitch Sprint","Type the founder's words before the opportunity disappears.","PITCH ↗"],
-["Spot the Bug","Catch the one signal that breaks the pattern.","DEBUG ↗"],
-["Hit the Deadline","Submit inside the shrinking deploy window.","DEPLOY ↗"],
-["Find the Real One","Identify the verified opportunity hiding among decoys.","VERIFY ↗"]
-];
-document.querySelector("#games").innerHTML=games.map((g,i)=>`<article class="card"><div class="eyebrow">BUILD ${String(i+1).padStart(2,"0")}</div><h3>${g[0]}</h3><div class="preview preview-${i}" aria-hidden="true"></div><div class="desc">${g[1]}</div><div class="best">BEST · ${data.best[g[0]]||0} REPUTATION</div><button class="buildbtn" onclick="openGame(${i})">${g[2]}</button></article>`).join("");
-
-function openGame(i){ stopGameTimer();
- const m=document.querySelector("#modal"),stage=document.querySelector("#mstage"),foot=document.querySelector("#mfoot");m.classList.remove("hidden");document.querySelector("#mtitle").textContent=games[i][0];startGameTimer(i);
- let n=3;stage.innerHTML=`<div class="count">${n}</div>`;let c=setInterval(()=>{n--;stage.querySelector(".count").textContent=n||"BUILD";if(n<=0){clearInterval(c);startGame(i)}},700);
- foot.innerHTML=`<p class="notice">Compiling your build…</p>`;
-}
-function finish(name,score,msg="Shipped"){ stopGameTimer();
- const stage=document.querySelector("#mstage");addRep(score,name);
- api("/api/score",{method:"POST",body:JSON.stringify({
-   userId:BUILDER_ID,displayName:"Builder #"+BUILDER_ID.slice(-4),
-   reputationDelta:score,source:name
- })});
- stage.innerHTML=`<div class="result"><div class="eyebrow">${msg}</div><div class="big">+${score}</div><p>REPUTATION / BUILD POINTS</p><p>${data.best[name]===score?"NEW BEST · ":""}Your build is recorded.</p></div>`;
- document.querySelector("#mfoot").innerHTML=`<div class="gamecontrols"><button class="btn primary" onclick="openGame(${games.findIndex(x=>x[0]===name)})">REBUILD ↗</button><button class="btn" onclick="closeGame()">BACK TO ARCADE</button></div>`;
-}
-function closeGame(){stopGameTimer();document.querySelector("#modal").classList.add("hidden")}
-
-function startGame(i){
- const stage=document.querySelector("#mstage"),foot=document.querySelector("#mfoot"),name=games[i][0];stage.innerHTML="";
- if(i===0){let score=0,time=2600;function spawn(){if(time<=600){finish(name,score,"SESSION CLOSED");return}stage.innerHTML=`<button class="target" aria-label="Ship feature"></button>`;let b=stage.getBoundingClientRect();let t=stage.querySelector(".target");t.style.left=Math.random()*(b.width-70)+"px";t.style.top=Math.random()*(b.height-80)+"px";t.onclick=()=>{score+=10;time-=130;stage.animate([{transform:"scale(1)"},{transform:"scale(1.04)"},{transform:"scale(1)"}],{duration:220});spawn()};setTimeout(()=>{if(stage.contains(t))spawn()},time)}spawn();foot.innerHTML=`<p class="notice">Ship each request before the deploy window. Faster chains raise the difficulty.</p>`}
- else if(i===1){let seq=[],input=[],level=3,score=0;function round(){input=[];seq.push(Math.floor(Math.random()*9));stage.innerHTML=`<div class="logic" id="mem"></div>`;let mem=[...Array(9)].map((_,x)=>`<button data-x="${x}">${x+1}</button>`).join("");stage.querySelector("#mem").innerHTML=mem;seq.forEach((x,k)=>setTimeout(()=>stage.querySelector(`[data-x="${x}"]`).classList.add("selected"),k*360));setTimeout(()=>{stage.querySelectorAll("button").forEach(b=>b.classList.remove("selected"));stage.querySelectorAll("button").forEach(b=>b.onclick=()=>{input.push(+b.dataset.x);b.classList.add("selected");if(input[input.length-1]!==seq[input.length-1])finish(name,score,"REVERTED");else if(input.length===seq.length){score+=20;level++;if(level>8)finish(name,score);else setTimeout(round,350)}})},seq.length*360+500)}round();foot.innerHTML=`<p class="notice">Reconstruct the build history in order. Each merged round adds another step.</p>`}
- else if(i===2){let words=["SHIP","BUILD","MERGE","CRAFT","GIG","FOUNDER","NETWORK","DEPLOY"];let idx=0,score=0;function next(){if(idx>=words.length){finish(name,score);return}let w=words[Math.floor(Math.random()*words.length)],shown=w.slice(0,Math.max(2,w.length-2));stage.innerHTML=`<div class="center"><div class="eyebrow">PITCH SPRINT</div><div style="font-size:38px;font-weight:1000">${w}</div><input id="type" autocomplete="off" style="margin-top:20px;background:#17101f;border:1px solid #473258;color:#fff;padding:13px;border-radius:9px;text-align:center" autofocus></div>`;let inp=stage.querySelector("#type");inp.oninput=()=>{if(inp.value.toUpperCase()===w){score+=10+idx*2;idx++;next()}};inp.focus()}next();foot.innerHTML=`<p class="notice">Type the flashed build signal before it vanishes. Later signals are faster.</p>`}
- else if(i===3){let score=0,round=0;function bug(){round++;let good=Math.floor(Math.random()*16);stage.innerHTML=`<div class="logic" style="max-width:520px">${[...Array(16)].map((_,x)=>`<button data-x="${x}">${x===good?"△":"○"}</button>`).join("")}</div>`;stage.querySelectorAll("button").forEach(b=>b.onclick=()=>{if(+b.dataset.x===good){score+=12+round;bug()}else finish(name,score,"REVERTED")});if(round>8)finish(name,score)}bug();foot.innerHTML=`<p class="notice">One pattern is broken. Catch it before the build ships. Decoys increase each round.</p>`}
- else if(i===4){let score=0,round=0;function beat(){round++;let start=performance.now(),windowMs=Math.max(380,1200-round*70);stage.innerHTML=`<div class="center"><div class="eyebrow">DEPLOY WINDOW</div><div id="bar" class="meter" style="width:min(520px,80vw);height:22px"><i></i></div><button id="submit" class="btn primary" style="margin-top:25px">SUBMIT BUILD</button></div>`;let raf;function tick(t){let p=Math.min(1,(t-start)/windowMs);stage.querySelector("#bar i").style.width=p*100+"%";if(p<1)raf=requestAnimationFrame(tick);else finish(name,score,"SESSION CLOSED")}requestAnimationFrame(tick);stage.querySelector("#submit").onclick=()=>{cancelAnimationFrame(raf);score+=20+round*3;beat()}}beat();foot.innerHTML=`<p class="notice">Hit submit inside the shrinking window — early or late closes the build.</p>`}
- else {let score=0,round=0;function cards(){round++;let real=Math.floor(Math.random()*6);stage.innerHTML=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(560px,90%)">${[...Array(6)].map((_,x)=>`<button class="card" data-x="${x}" style="min-height:100px"><b>${x===real?"VERIFIED":"OPPORTUNITY"}</b><small style="display:block;color:#8f8499;margin-top:8px">BUILD #${Math.floor(Math.random()*900+100)}</small></button>`).join("")}</div>`;stage.querySelectorAll("button").forEach(b=>b.onclick=()=>{if(+b.dataset.x===real){score+=15+round*3;round<8?cards():finish(name,score)}else finish(name,score,"REVERTED")})}cards();foot.innerHTML=`<p class="notice">Spot the verified build. More decoys enter the network as your accuracy improves.</p>`}
-}
-
-/* DAILY WORD BUILD */
-const words=["BUILD","CRAFT","MERGE","STACK","SHIPS","GIGSY","ZORTA","TEAMS","CODEX","PITCH"];
-const dailyWord=words[Math.floor(new Date(today()).getTime()/86400000)%words.length];
-function renderWord(){let d=data.daily.word||{rows:[],done:false};let el=document.querySelector("#wordgame");el.innerHTML=`<div class="wordgrid">${[...Array(30)].map((_,i)=>`<div class="tile ${d.rows[Math.floor(i/5)]?.[Math.floor(i%5)]?.c||""}">${d.rows[Math.floor(i/5)]?.[Math.floor(i%5)]?.l||""}</div>`).join("")}</div>${d.done?`<div class="notice">BUILD LOCKED · Come back tomorrow for a new word.</div>`:`<div class="keyboard">${"QWERTYUIOPASDFGHJKLZXCVBNM".split("").map(k=>`<button class="key" onclick="typeWord('${k}')">${k}</button>`).join("")}<button class="key" onclick="backWord">⌫</button><button class="key" onclick="enterWord()">↵</button></div><div class="notice" id="wordmsg">Build a 5-letter word · ${6-d.rows.length} attempts left</div><button class="buildbtn" style="margin-top:10px" onclick="enterWord()">DECODE ↗</button>`}`}
-function typeWord(k){let d=data.daily.word||{rows:[],cur:"",done:false};if(!d.done&&d.cur.length<5){d.cur+=k;data.daily.word=d;save();renderWord()}}
-function enterWord(){let d=data.daily.word||{rows:[],cur:"",done:false};if(d.cur.length!==5)return;let guess=d.cur.toUpperCase();let row=[...guess].map((l,i)=>({l,c:l===dailyWord[i]?"good":dailyWord.includes(l)?"mid":"bad"}));d.rows.push(row);d.cur="";if(guess===dailyWord||d.rows.length>=6){d.done=true;addRep(40,"Daily Word Build")}data.daily.word=d;save();renderWord()}
-renderWord();
-
-/* DAILY SIGNAL — four matching concepts among sixteen tiles. */
-const signalSets=[["SHIP","MERGE","DEPLOY","BUILD"],["GIG","TALENT","FOUNDER","PROJECT"],["CODE","STACK","COMMIT","REPO"]];
-let set=signalSets[Math.floor(new Date(today()).getTime()/86400000)%signalSets.length];
-let pool=[...set,...["PITCH","COIN","EVENT","NETWORK","BADGE","STARTUP","DESIGN","COMMUNITY","BOT","HIRE","CRAFT","LAUNCH"]].sort(()=>Math.random()-.5);
-function renderLogic(){let d=data.daily.logic||{sel:[],done:false};document.querySelector("#logicgame").innerHTML=d.done?`<div class="notice">SIGNAL MERGED ✓<br>Return tomorrow for a new daily build.</div>`:`<div class="logic">${pool.map((x,i)=>`<button class="${d.sel.includes(i)?"selected":""}" onclick="selLogic(${i})">${x}</button>`).join("")}</div><div class="notice">Select the four tiles that share one build signal.</div><button class="buildbtn" style="margin-top:10px" onclick="selLogicSubmit()">MERGE ↗</button>`}
-function selLogicSubmit(){let d=data.daily.logic||{sel:[],done:false};if(d.sel.length!==4)return;
- if(d.sel.every(x=>set.includes(pool[x]))){d.done=true;addRep(35,"Daily Signal");api("/api/score",{method:"POST",body:JSON.stringify({userId:BUILDER_ID,displayName:"Builder #"+BUILDER_ID.slice(-4),reputationDelta:35,source:"Daily Signal"})});}
- else d.sel=[];data.daily.logic=d;save();renderLogic()}
-function selLogic(i){let d=data.daily.logic||{sel:[],done:false};if(d.done)return;if(d.sel.includes(i))d.sel=d.sel.filter(x=>x!==i);else if(d.sel.length<4)d.sel.push(i);data.daily.logic=d;save();renderLogic()}
-renderLogic();
-
-/* BUILD WALL. Frontend is complete; true multiplayer requires backend sync. */
-const COLORS=["#8b5cf6","#a855f7","#d946ef","#f0abfc","#67e8f9","#22d3ee","#f8fafc","#17121f","#ef4444","#f59e0b","#22c55e","#3b82f6"];
-const ckey="zorta-wall-v1",canvasState=JSON.parse(localStorage.getItem(ckey)||"{}");canvasState.cells=canvasState.cells||{};
-let selected=0,lastPlace=+(localStorage.getItem("zorta-place")||0);
-function saveCanvasState(){localStorage.setItem(ckey,JSON.stringify(canvasState))}
-function loadCanvasState(){return canvasState}
-const pc=document.querySelector("#pixelcanvas");for(let i=0;i<4096;i++){let b=document.createElement("button");b.className="px";b.dataset.i=i;b.style.background=canvasState.cells[i]||COLORS[7];b.onclick=()=>placePixel(i);pc.appendChild(b)}
-document.querySelector("#colors").innerHTML=COLORS.map((c,i)=>`<button class="color ${i===0?"sel":""}" style="background:${c}" onclick="selectColor(${i},this)"></button>`).join("");
-function selectColor(i,b){selected=i;document.querySelectorAll(".color").forEach(x=>x.classList.remove("sel"));b.classList.add("sel")}
-function placePixel(i){let now=Date.now(),wait=45000;if(now-lastPlace<wait)return;canvasState.cells[i]=COLORS[selected];saveCanvasState();document.querySelector(`.px[data-i="${i}"]`).style.background=COLORS[selected];lastPlace=now;localStorage.setItem("zorta-place",lastPlace);addRep(3,"Build Wall")}
-setInterval(()=>{let left=Math.max(0,45000-(Date.now()-lastPlace));document.querySelector("#cooldown").textContent=left?Math.ceil(left/1000)+"s":"READY"},500); 
-
-/* Placeholder leaderboard: replace with API/WebSocket once Zorta launches. */
-let boardMode="weekly";function board(){let rows=[["01","You",data.rep],["02","Curious Builder",780],["03","Night Shipper",650],["04","Pixel Founder",520],["05","Stack Crafter",410]];if(boardMode==="life")rows=rows.map((r,i)=>[r[0],r[1],r[2]+i*420]);document.querySelector("#boardrows").innerHTML=rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]} REP</td></tr>`).join("")}board();document.querySelector("#life").onclick=()=>{boardMode="life";life.classList.add("active");weekly.classList.remove("active");board()};
-
-const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add("on")),{threshold:.08});document.querySelectorAll(".reveal").forEach(e=>io.observe(e));
-
-document.addEventListener("keydown", e=>{
-  const wordEl=document.querySelector("#wordgame");
-  if(!wordEl || !wordEl.getBoundingClientRect().height) return;
-  const tag=(document.activeElement?.tagName||"").toLowerCase();
-  if(tag==="input" || tag==="textarea" || tag==="button") return;
-  const k=e.key.toUpperCase();
-  if(/^[A-Z]$/.test(k)){e.preventDefault();typeWord(k)}
-  else if(e.key==="Backspace"){e.preventDefault();let d=data.daily.word||{rows:[],cur:"",done:false};if(!d.done){d.cur=d.cur.slice(0,-1);data.daily.word=d;save();renderWord()}}
-  else if(e.key==="Enter"){e.preventDefault();enterWord()}
-});
-
-async function loadBoard(scope="weekly"){
- const result=await api(`/api/leaderboard?scope=${scope}`);
- if(result?.entries){
-   document.querySelector("#boardrows").innerHTML=result.entries.slice(0,20).map((r,i)=>
-    `<tr><td>${i+1}</td><td>${r.displayName||"Builder #"+String(r.userId||"").slice(-4)}</td><td>${r.reputation||0} REP</td></tr>`).join("");
-   return;
- }
- board();
-}
-loadBoard("weekly");
-document.querySelector("#weekly").onclick=()=>{boardMode="weekly";weekly.classList.add("active");life.classList.remove("active");loadBoard("weekly")};
-document.querySelector("#life").onclick=()=>{boardMode="life";life.classList.add("active");weekly.classList.remove("active");loadBoard("lifetime")};
-
-async function syncCanvas(){
- const result=await api("/api/canvas-state");
- if(result?.pixels){
-   result.pixels.forEach(p=>{
-     const idx=p.y*64+p.x;
-     const cell=document.querySelector(`.px[data-i="${idx}"]`);
-     if(cell) cell.style.background=p.color;
-     canvasState.cells[idx]=p.color;
-   });
-   saveCanvasState();
- }
-}
-syncCanvas(); setInterval(syncCanvas,4000);
-
-const localPlace=placePixel;
-placePixel=async function(i){
- let now=Date.now(), wait=120000;
- if(now-lastPlace<wait)return;
- const x=i%64,y=Math.floor(i/64),color=COLORS[selected];
- const result=await api("/api/canvas-place",{method:"POST",body:JSON.stringify({x,y,color,userId:BUILDER_ID})});
- if(result?.error==="cooldown"){
-   lastPlace=now-(120000-(result.retryAfterMs||120000)); localStorage.setItem("zorta-place",lastPlace); return;
- }
- if(result?.ok){localPlace(i)}
- else localPlace(i); // silent local fallback
-}
-setInterval(()=>{let left=Math.max(0,120000-(Date.now()-lastPlace));document.querySelector("#cooldown").textContent=left?Math.ceil(left/1000)+"s":"READY"},500);
-
-const GAME_DURATIONS = [30, 45, 45, 40, 35, 40];
-let gameTimerInterval = null, gameTimerEndsAt = 0, gameTimerGame = -1, gameTimedOut = false;
-
-function formatGameTime(sec){
-  sec=Math.max(0,Math.ceil(sec));
-  return `00:${String(sec).padStart(2,"0")}`;
-}
-function stopGameTimer(){
-  if(gameTimerInterval){clearInterval(gameTimerInterval);gameTimerInterval=null;}
-}
-function startGameTimer(i){
-  stopGameTimer();
-  gameTimerGame=i; gameTimedOut=false;
-  const el=document.querySelector("#gameTimer"), label=document.querySelector("#gameTimerLabel");
-  const duration=GAME_DURATIONS[i]||40;
-  gameTimerEndsAt=Date.now()+duration*1000;
-  label.textContent=i===4?"DEPLOY WINDOW":i===0?"SPRINT TIMER":"BUILD WINDOW";
-  el.classList.remove("warn","done");
-  function tick(){
-    const left=Math.max(0,(gameTimerEndsAt-Date.now())/1000);
-    el.textContent=formatGameTime(left);
-    if(left<=10 && left>0)el.classList.add("warn");
-    if(left<=0){
-      stopGameTimer(); gameTimedOut=true; el.textContent="00:00"; el.classList.remove("warn"); el.classList.add("done");
-      if(document.querySelector("#modal") && !document.querySelector("#modal").classList.contains("hidden")){
-        finish(games[i][0], Math.max(0, Math.floor((data.best[games[i][0]]||0)*0.08)), "SESSION CLOSED");
-      }
-    }
-  }
-  tick(); gameTimerInterval=setInterval(tick,100);
-}
-</script>
+<!-- Set window.ZORTA_API_BASE to the deployed API URL before this module in production. -->
+<script type="module" src="./app.js"></script>
 </body>
 </html>

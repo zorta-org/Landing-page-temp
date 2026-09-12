@@ -1,41 +1,37 @@
-/* ONE LINE TO EDIT AFTER DEPLOYING THE BACKEND */
-export const API_BASE = "https://coming-backend.onrender.com/";
+// const configured = window.ZORTA_API_BASE || document.querySelector('meta[name="zorta-api-base"]')?.content || '';
+// export const API_BASE = configured.replace(/\/$/, '');
+
+API_BASE = "https://coming-backend.onrender.com"; // default value, can be overridden by window.ZORTA_API_BASE or meta tag
 
 export async function api(path, options = {}) {
+  if (!API_BASE) return null;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), Number(options.timeoutMs) || 8000);
   try {
+    const { timeoutMs, ...fetchOptions } = options;
     const res = await fetch(`${API_BASE}${path}`, {
-      ...options,
-      headers: { "Content-Type": "application/json", ...(options.headers || {}) }
+      ...fetchOptions,
+      signal: controller.signal,
+      headers: { 'Content-Type': 'application/json', ...(fetchOptions.headers || {}) }
     });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
-  } catch {
-    return null; // local-only fallback: never break the arcade if API is unavailable
-  }
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) return { ...body, ok: false, error: body.error || `HTTP ${res.status}` };
+    return body;
+  } catch { return null; }
+  finally { clearTimeout(timeout); }
 }
 
 export function getUserId() {
-  const key = "zorta-anonymous-user-id";
+  const key = 'zorta-anonymous-user-id';
   let id = localStorage.getItem(key);
   if (!id) {
-    id = crypto?.randomUUID?.() || `builder-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    id = globalThis.crypto?.randomUUID?.() || `builder-${Date.now()}-${Math.random().toString(36).slice(2)}`;
     localStorage.setItem(key, id);
   }
   return id;
 }
 
-
 export async function submitWaitlist(email) {
-  try {
-    const res = await fetch(`${API_BASE}/api/waitlist`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email })
-    });
-    const body = await res.json().catch(() => ({}));
-    if (res.ok) return { ok: true, ...body };
-    return { ok: false, ...body };
-  } catch {
-    return { ok: false, error: "unavailable" };
-  }
+  const result = await api('/api/waitlist', { method: 'POST', body: JSON.stringify({ email }) });
+  return result?.ok ? result : { ok: false, error: result?.error || 'unavailable' };
 }
