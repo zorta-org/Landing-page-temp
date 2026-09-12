@@ -1,7 +1,6 @@
-// const configured = window.ZORTA_API_BASE || document.querySelector('meta[name="zorta-api-base"]')?.content || '';
-// export const API_BASE = configured.replace(/\/$/, '');
+export const API_BASE = 'https://coming-backend.onrender.com';
 
-API_BASE = "https://coming-backend.onrender.com"; // default value, can be overridden by window.ZORTA_API_BASE or meta tag
+
 
 export async function api(path, options = {}) {
   if (!API_BASE) return null;
