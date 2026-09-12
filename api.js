@@ -1,5 +1,5 @@
 /* ONE LINE TO EDIT AFTER DEPLOYING THE BACKEND */
-export const API_BASE = "https://YOUR_BACKEND_URL_HERE";
+export const API_BASE = "https://coming-backend.onrender.com/";
 
 export async function api(path, options = {}) {
   try {
