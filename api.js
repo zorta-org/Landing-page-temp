@@ -7,10 +7,16 @@ export async function api(path, options = {}) {
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const { timeoutMs: _timeoutMs, ...fetchOptions } = options;
+    const headers = { ...(fetchOptions.headers || {}) };
+    const hasBody = fetchOptions.body !== undefined && fetchOptions.body !== null;
+    if (hasBody && !Object.keys(headers).some(key => key.toLowerCase() === 'content-type')) {
+      headers['Content-Type'] = 'application/json';
+    }
+
     const res = await fetch(`${API_BASE}${path}`, {
       ...fetchOptions,
       signal: controller.signal,
-      headers: { 'Content-Type': 'application/json', ...(fetchOptions.headers || {}) }
+      headers
     });
     const body = await res.json().catch(() => ({}));
     if (!res.ok) return { ...body, ok: false, error: body.error || `HTTP ${res.status}` };
