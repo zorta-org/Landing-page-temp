@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ZORTA — Play Games</title>
+<meta name="description" content="Zorta Builder's Arcade — daily builds, games, rankings and the shared build wall.">
+<link rel="icon" href="./zorta-logo.png" type="image/png">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<nav>
+  <div class="wrap navin">
+    <a class="brand" href="./index.html" aria-label="Zorta home"><img class="brand-logo" src="./zorta-logo.png" alt="Zorta"></a>
+    <div class="actions">
+      <a class="btn" href="./index.html">HOME</a>
+      <button class="btn primary" type="button" data-open-waitlist>JOIN THE WAITLIST</button>
+    </div>
+    <div class="socials" aria-label="Zorta social links">
+      <a href="#" data-social="instagram" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.8" r="1.1"/></svg></a>
+      <a href="#" data-social="facebook" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V4a22 22 0 0 0-2.4-.1c-2.4 0-4 1.5-4 4.1V10H7.7v3h2.7v8h3.1Z"/></svg></a>
+      <a href="#" data-social="x" aria-label="X"><svg viewBox="0 0 24 24"><path d="M5 4h3.7l3.35 4.9L15.8 4H19l-5.35 7.05L19.5 20h-3.7l-3.75-5.45L7.7 20H4.5l5.55-7.6L5 4Z"/></svg></a>
+      <a href="#" data-social="discord" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M19.5 5.1A16.1 16.1 0 0 0 15.7 4l-.5 1a14 14 0 0 0-6.4 0l-.5-1a16.1 16.1 0 0 0-3.8 1.1C2.1 8.4 1.4 11.6 1.7 14.8a15.7 15.7 0 0 0 4.7 2.4l1.1-1.5c-.6-.2-1.2-.5-1.7-.8l.4-.3a11.3 11.3 0 0 0 11.6 0l.4.3c-.5.3-1.1.6-1.7.8l1.1 1.5a15.7 15.7 0 0 0 4.7-2.4c.4-3.7-.7-6.9-2.8-9.7ZM8.4 13.4c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm7.2 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8 2 1.8 2-.8 2-1.8 2Z"/></svg></a>
+      <a href="#" data-social="linkedin" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.5 3.5A2.1 2.1 0 1 1 4.5 7.7a2.1 2.1 0 0 1 0-4.2ZM2.8 9h3.4v12H2.8V9Zm5.5 0h3.2v1.6h.1c.4-.8 1.5-1.9 3.5-1.9 3.7 0 4.4 2.4 4.4 5.6V21h-3.4v-5.9c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H8.3V9Z"/></svg></a>
+      <a href="#" data-social="tiktok" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M15 4h2.8c.3 1.7 1.2 3 2.7 3.8v2.8c-1.2-.1-2.3-.5-3.2-1.1v6.2a5.3 5.3 0 1 1-4.5-5.2v2.9a2.5 2.5 0 1 0 1.8 2.4V4.8L15 4Z"/></svg></a>
+    </div>
+  </div>
+</nav>
+
+<main>
+<section class="page-hero">
+  <div class="wrap">
+    <div class="page-kicker">02 / THE BUILDER'S ARCADE</div>
+    <h1>Practice being<br>a Zorta builder.</h1>
+    <p>Six quick builds, two daily challenges, a live founders' board, and the shared build wall. Same games and mechanics — now living in their own space.</p>
+  </div>
+</section>
+
+<section class="arcade" id="arcade">
+<div class="wrap">
+  <div class="arc-head reveal">
+    <div>
+      <div class="eyebrow">BUILDER PROFILE</div>
+      <h2>Build.<br>Play.<br>Repeat.</h2>
+    </div>
+    <div class="profile">
+      <div class="profiletop"><b>BUILDER PROFILE</b><span><b id="level">LV 1</b> · <span id="rank">Curious Builder</span></span></div>
+      <div class="meter"><i id="rankbar"></i></div>
+      <small><b id="rep">0</b> Reputation · <b id="coins">0</b> Zorta Coins · 🔥 <b id="streak">0</b> Build Streak</small>
+      <div id="streakmsg" class="danger" style="margin-top:7px"></div>
+    </div>
+  </div>
+
+  <div class="daily reveal">
+    <div class="dailyhead">
+      <div><div class="eyebrow">DAILY BUILDS</div><h3>New every day.</h3></div>
+      <div class="reset">NEXT RESET <span id="reset">--:--:--</span></div>
+    </div>
+    <div class="dailygrid">
+      <article class="card dailygame"><h3>Daily Word Build</h3><div class="desc">Decode today's 5-letter Zorta word. Six builds. One puzzle.</div><div id="wordgame" class="gameui"></div></article>
+      <article class="card dailygame"><h3>Daily Signal</h3><div class="desc">Find the four tiles that belong to the same build signal.</div><div id="logicgame" class="gameui"></div></article>
+    </div>
+  </div>
+
+  <div class="board reveal">
+    <div class="boardhead"><b>FOUNDERS' BOARD</b><div class="tabs"><button id="weekly" class="active">WEEKLY</button><button id="life">LIFETIME</button></div></div>
+    <table><tbody id="boardrows"></tbody></table>
+  </div>
+
+  <div class="games reveal" id="games"></div>
+
+  <div class="canvaswrap reveal">
+    <div class="eyebrow">03 / BUILD TOGETHER</div>
+    <div class="card">
+      <h3>THE BUILD WALL</h3>
+      <div class="desc">A shared 64 × 64 mural. Every placement is written to Zorta's server and appears for everyone. One build slot opens every 120 seconds.</div>
+      <div class="canvasbox" style="margin-top:15px">
+        <div id="pixelcanvas" class="pixelcanvas"></div>
+        <div class="palette">
+          <b>NEXT BUILD SLOT</b>
+          <div id="cooldown" style="font-size:28px;margin:8px 0">SYNCING</div>
+          <small class="notice" id="canvasStatus">CONNECTING TO THE SHARED WALL…</small>
+          <div class="colors" id="colors"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="community reveal">
+  <div class="wrap communitybox">
+    <div class="discordbox">
+      <div class="discordline"><div class="discordmark"><svg viewBox="0 0 24 24"><path d="M19.5 5.1A16.1 16.1 0 0 0 15.7 4l-.5 1a14 14 0 0 0-6.4 0l-.5-1a16.1 16.1 0 0 0-3.8 1.1C2.1 8.4 1.4 11.6 1.7 14.8a15.7 15.7 0 0 0 4.7 2.4l1.1-1.5c-.6-.2-1.2-.5-1.7-.8l.4-.3a11.3 11.3 0 0 0 11.6 0l.4.3c-.5.3-1.1.6-1.7.8l1.1 1.5a15.7 15.7 0 0 0 4.7-2.4c.4-3.7-.7-6.9-2.8-9.7ZM8.4 13.4c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm7.2 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8 2 1.8 2-.8 2-1.8 2Z"/></svg></div><div><div class="eyebrow" style="margin-bottom:4px">THE COMMUNITY</div><h3>Keep building with us.</h3></div></div>
+      <p>Updates, discussions, early access and whatever we're working on next happen on Discord first.</p>
+      <a class="discordbtn" href="#" data-social="discord">JOIN DISCORD ↗</a>
+    </div>
+    <div class="waitbox">
+      <div><div class="eyebrow">EARLY ACCESS</div><h3>Be there when Zorta ships.</h3><p>Leave your email and we'll keep you posted.</p></div>
+      <button class="btn primary" type="button" data-open-waitlist>JOIN THE WAITLIST</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap foot">
+  <div><b style="color:#eaf8fd;letter-spacing:.12em">ZORTA</b><div>Connect · Build · Grow.</div><div>Builder's Arcade · 2026</div></div>
+  <div class="socials"><a href="./index.html" class="btn">BACK HOME</a></div>
+</div></footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<div id="waitModal" class="wait-modal" aria-hidden="true">
+  <div class="wait-panel" role="dialog" aria-modal="true" aria-labelledby="waitTitle">
+    <div class="wait-head"><div><div class="eyebrow">ZORTA / EARLY ACCESS</div><h2 id="waitTitle">Pick your way in.</h2></div><button class="wait-close" id="waitClose" type="button" aria-label="Close waitlist">×</button></div>
+    <div class="wait-options">
+      <div class="wait-option"><h3>JOIN THE DISCORD</h3><p>Our most active community. Updates, giveaways, early access and more happen there.</p><a class="wait-discord" href="#" data-social="discord">JOIN DISCORD ↗</a></div>
+      <div class="wait-option"><h3>ENTER YOUR EMAIL</h3><p>Prefer email? Leave it here and we'll let you know when Zorta ships.</p>
+        <form class="wait-form" id="waitlistForm">
+          <label for="waitlistEmail">Email <span aria-hidden="true">*</span></label>
+          <input id="waitlistEmail" name="email" type="email" autocomplete="email" placeholder="your@email.com" required>
+          <label for="waitlistSource">Where did you hear about us? <span style="font-weight:500;color:#607783">optional</span></label>
+          <select id="waitlistSource" name="source">
+            <option value="">Select one</option><option value="X">X</option><option value="Instagram">Instagram</option><option value="Discord">Discord</option><option value="TikTok">TikTok</option><option value="YouTube">YouTube</option><option value="LinkedIn">LinkedIn</option><option value="Friend/word of mouth">Friend / word of mouth</option><option value="Search">Search</option><option value="Other">Other</option>
+          </select>
+          <label for="waitlistRole">Which best describes you? <span style="font-weight:500;color:#607783">optional</span></label>
+          <select id="waitlistRole" name="role">
+            <option value="">Prefer not to say</option><option value="Student">Student</option><option value="Freelancer">Freelancer</option><option value="Creator">Creator</option><option value="Developer">Developer</option><option value="Founder">Founder</option><option value="Other">Other</option>
+          </select>
+          <label for="waitlistSuggestions">Any suggestions or features you'd love to see? <span style="font-weight:500;color:#607783">optional</span></label>
+          <textarea id="waitlistSuggestions" name="suggestions" rows="3" maxlength="500" placeholder="e.g. A place to find collaborators for side projects."></textarea>
+          <button class="btn primary" type="submit">JOIN</button>
+        </form>
+        <div id="waitStatus" class="wait-status" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal" class="game-modal hidden">
+  <div class="gamepanel">
+    <div class="gamebar">
+      <div><h2 id="mtitle"></h2><div id="gameTimerLabel" class="game-timer-label">SPRINT TIMER</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><div id="gameTimer" class="game-timer">--:--</div><button class="close" id="closeGame">BACK TO ARCADE</button></div>
+    </div>
+    <div id="mstage" class="stage"></div><div id="mfoot"></div>
+  </div>
+</div>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>
