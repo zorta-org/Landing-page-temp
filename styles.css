@@ -528,3 +528,73 @@ footer{border-top:1px solid #102632;padding:35px 0;color:#6f8490}
   .orb-a{right:-35%;top:4%;width:90vw;height:90vw}
   .orb-b{left:-35%;width:70vw;height:70vw}
 }
+
+
+/* Device-hardening: keep every interactive surface inside the viewport. */
+html,body{max-width:100%;overscroll-behavior-x:none}
+body{min-width:0;overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+main,section,nav,footer,.wrap,.card,.gamepanel,.stage,.gameui,.dailygrid,.games,.canvasbox,.communitybox{min-width:0;max-width:100%}
+.btn,.buildbtn,.key,.logic button,.close,.wait-close,.color,.target{touch-action:manipulation}
+button,a{ -webkit-tap-highlight-color:transparent }
+.game-modal,.wait-modal{overflow:hidden;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
+.gamepanel,.wait-panel{min-width:0;width:min(760px,100%);box-sizing:border-box}
+.stage{width:100%;max-width:100%;box-sizing:border-box}
+.wordgrid,.keyboard,.logic,.opportunity-grid{max-width:100%}
+.logic button,.opportunity{min-width:0;overflow-wrap:anywhere;word-break:break-word}
+.pixelcanvas{width:100%;max-width:100%;overflow:hidden}
+
+@media(max-width:600px){
+  .wrap{width:calc(100% - 24px)}
+  .navin{gap:8px}
+  .navin .actions{min-width:0}
+  .navin .actions .btn{max-width:46vw;overflow:hidden;text-overflow:ellipsis}
+  .page-hero h1{overflow-wrap:anywhere}
+  .arc-head h2{font-size:clamp(32px,14vw,58px)}
+  .dailyhead{align-items:flex-start;flex-direction:column}
+  .dailyhead .reset{align-self:flex-start}
+  .board{overflow-x:hidden}
+  .board table{table-layout:fixed}
+  .board td{padding:10px 10px;overflow-wrap:anywhere}
+  .gamepanel{max-height:calc(100dvh - 24px);border-radius:16px;padding:14px}
+  .gamebar{width:100%;min-width:0}
+  .gamebar>div:first-child{min-width:0;flex:1}
+  .gamebar h2{overflow-wrap:anywhere}
+  .gamebar>div:last-child{min-width:0;flex-shrink:1}
+  .game-timer{min-width:58px;width:auto}
+  .close{white-space:normal;max-width:145px}
+  .stage{min-height:clamp(235px,65vw,310px);margin:12px 0}
+  .count{font-size:clamp(54px,18vw,70px)}
+  .target{width:52px;height:52px}
+  .wordgrid{width:min(100%,280px)}
+  .keyboard{gap:4px}
+  .key{min-width:0;flex:0 0 30px;height:36px;padding:0 4px}
+  .logic{gap:5px;width:100%}
+  .logic button{min-height:58px;padding:8px 4px;font-size:11px}
+  .opportunity-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding:8px}
+  .opportunity{min-height:78px;padding:10px}
+  .pitch-word{font-size:clamp(36px,15vw,68px);overflow-wrap:anywhere}
+  .stage input{max-width:100%;font-size:16px}
+  .gamecontrols{width:100%}
+  .gamecontrols .btn{flex:1;min-width:0}
+  .wait-panel{max-height:calc(100dvh - 24px);border-radius:16px}
+}
+
+@media(max-width:360px){
+  .wrap{width:calc(100% - 18px)}
+  .reference-nav-right{gap:8px}
+  .reference-nav .nav-link{font-size:8px}
+  .actions .btn{font-size:8px}
+  .key{flex-basis:27px;height:34px;font-size:10px}
+  .logic button{font-size:10px;min-height:54px}
+  .gamepanel{padding:11px}
+  .close{max-width:120px;font-size:9px;padding:7px}
+  .game-timer{font-size:12px;padding:7px 6px;min-width:54px}
+}
+
+body.modal-open{overflow:hidden;position:fixed;width:100%;}
+.game-modal[aria-hidden="true"],.wait-modal[aria-hidden="true"]{visibility:hidden;}
+.game-modal:not(.hidden)[aria-hidden="false"],.wait-modal.open[aria-hidden="false"]{visibility:visible;}
+@media(max-width:600px){
+  body.modal-open{height:100dvh;}
+  .gamepanel,.wait-panel{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;}
+}

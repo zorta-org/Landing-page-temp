@@ -195,9 +195,10 @@ function startTimer(i){ stopTimer(); gameFinished=false; gameEnds=Date.now()+GAM
 }
 function stopTimer(){if(gameTimer){clearInterval(gameTimer);gameTimer=null;} }
 function cleanupGame(){stopTimer();gameCleanup.splice(0).forEach(fn=>{try{fn();}catch{}});}
-function openGame(i){cleanupGame();activeGame=i;gameFinished=false;const m=$('#modal'),stage=$('#mstage'),foot=$('#mfoot');m.classList.remove('hidden');$('#mtitle').textContent=GAMES[i].name;stage.innerHTML='<div class="count">3</div>';foot.innerHTML='<p class="notice">Get ready…</p>';let n=3;const id=setInterval(()=>{n--;const count=stage.querySelector('.count');if(count)count.textContent=n||'BUILD';if(n<=0){clearInterval(id);startTimer(i);startGame(i);}},600);gameCleanup.push(()=>clearInterval(id));}
-function closeGame(){cleanupGame();activeGame=-1;$('#modal')?.classList.add('hidden');}
+function openGame(i){cleanupGame();activeGame=i;gameFinished=false;const m=$('#modal'),stage=$('#mstage'),foot=$('#mfoot');m.classList.remove('hidden');m.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');$('#mtitle').textContent=GAMES[i].name;stage.innerHTML='<div class="count">3</div>';foot.innerHTML='<p class="notice">Get ready…</p>';let n=3;const id=setInterval(()=>{n--;const count=stage.querySelector('.count');if(count)count.textContent=n||'BUILD';if(n<=0){clearInterval(id);startTimer(i);startGame(i);}},600);gameCleanup.push(()=>clearInterval(id));}
+function closeGame(){cleanupGame();activeGame=-1;const m=$('#modal');m?.classList.add('hidden');m?.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');}
 window.closeGame=closeGame;
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&activeGame>=0)closeGame();});
 function endGame(score,reason='SHIPPED'){
   if(gameFinished)return;gameFinished=true;const i=activeGame;if(i<0)return;cleanupGame();const name=GAMES[i].name; const safeScore=Math.max(0,Math.floor(score));
   const stage=$('#mstage'),foot=$('#mfoot');stage.innerHTML=`<div class="result"><div class="eyebrow">${escapeHtml(reason)}</div><div class="big">+${safeScore}</div><p>REPUTATION / BUILD POINTS</p><p id="resultSync">SAVING BUILD…</p></div>`;
@@ -402,6 +403,61 @@ function handleWordKeyboard(e){
   }
 }
 document.addEventListener('keydown',handleWordKeyboard);
+
+// Daily Signal
+// Restored the original daily-build renderer. The previous redesign kept the
+// final renderLogic() call but the function itself was accidentally dropped,
+// which stopped the module before the arcade could finish initializing.
+const signalSets=[['SHIP','MERGE','DEPLOY','BUILD'],['GIG','TALENT','FOUNDER','PROJECT'],['CODE','STACK','COMMIT','REPO']];
+function signalSetForDay(k=dayKey()){return signalSets[daySeed(k)%signalSets.length];}
+const signalPoolForDay=k=>[...signalSetForDay(k),...['PITCH','COIN','EVENT','NETWORK','BADGE','STARTUP','DESIGN','COMMUNITY','BOT','HIRE','CRAFT','LAUNCH']];
+function renderLogic(){
+  ensureDailyState();
+  const el=$('#logicgame');
+  if(!el)return;
+  const d=state.daily.logic||{sel:[],done:false,message:''};
+  const signalSet=signalSetForDay();
+  const signalPool=signalPoolForDay(dayKey());
+  const feedback=d.message?`<div class="notice signal-feedback error" role="status">${escapeHtml(d.message)}</div>`:'';
+  el.innerHTML=d.done
+    ? '<div class="notice">SIGNAL MERGED ✓<br>Return tomorrow for a new daily build.</div>'
+    : `<div class="logic" aria-label="Daily Signal choices">${signalPool.map((x,i)=>`<button type="button" class="${d.sel.includes(i)?'selected':''}" data-signal="${i}">${x}</button>`).join('')}</div>${feedback}<div class="notice">Select the four tiles that share one build signal.</div><button type="button" class="buildbtn" data-merge>MERGE ↗</button>`;
+  if(d.done)return;
+
+  $$('[data-signal]',el).forEach(b=>b.onclick=()=>{
+    const i=Number(b.dataset.signal);
+    d.message='';
+    if(d.sel.includes(i))d.sel=d.sel.filter(x=>x!==i);
+    else if(d.sel.length<4)d.sel.push(i);
+    state.daily.logic=d;
+    saveState();
+    renderLogic();
+  });
+
+  $('[data-merge]',el).onclick=async()=>{
+    if(d.sel.length!==4){
+      d.message='SELECT FOUR TILES BEFORE MERGING.';
+      state.daily.logic=d;
+      saveState();
+      renderLogic();
+      return;
+    }
+    if(d.sel.every(i=>signalSet.includes(signalPool[i]))){
+      d.done=true;
+      d.message='';
+      state.daily.logic=d;
+      saveState();
+      renderLogic();
+      await recordScore(35,'Daily Signal','daily',crypto.randomUUID(),'signal');
+    }else{
+      d.sel=[];
+      d.message='COMBINATION INCORRECT · TRY AGAIN.';
+      state.daily.logic=d;
+      saveState();
+      renderLogic();
+    }
+  };
+}
 
 // Shared Build Wall
 function loadWallLocal(){try{const x=JSON.parse(localStorage.getItem(WALL_STORAGE)||'{}');return x.cells||{};}catch{return {};}}
