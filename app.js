@@ -1,5 +1,6 @@
 import { api, getUserId, submitWaitlist } from './api.js';
 import { SOCIALS } from './social-config.js';
+import { VALID_WORDS } from './word-list.js';
 
 const BUILDER_ID = getUserId();
 const $ = (s, r = document) => r.querySelector(s);
@@ -222,7 +223,7 @@ const WORD_LENGTH=5;
 const MAX_WORD_ATTEMPTS=6;
 function daySeed(k){let n=2166136261;for(const c of k)n=Math.imul(n^c.charCodeAt(0),16777619);return n>>>0;}
 function dailyWordForDay(k=dayKey()){return DAILY_WORDS[daySeed(k)%DAILY_WORDS.length];}
-function ensureDailyState(){const k=dayKey();if(state.daily.date!==k){state.daily={date:k,word:{rows:[],cur:'',done:false},logic:{sel:[],done:false,message:''}};saveState();}}
+function ensureDailyState(){const k=dayKey();if(state.daily.date!==k){state.daily={date:k,word:{rows:[],cur:'',done:false,message:''},logic:{sel:[],done:false,message:''}};saveState();}}
 
 function evaluateWordGuess(guess,answer){
   const result=Array.from({length:WORD_LENGTH},(_,i)=>({l:guess[i]||'',c:'bad'}));
@@ -263,22 +264,20 @@ function renderWord(){
   ensureDailyState();
   const el=$('#wordgame');
   if(!el)return;
-  const d=state.daily.word||{rows:[],cur:'',done:false};
+  const d=state.daily.word||{rows:[],cur:'',done:false,message:''};
   const keyboardStates=getKeyboardStates(d.rows);
   const keys='QWERTYUIOPASDFGHJKLZXCVBNM'.split('');
   const tiles=[];
 
-  // Completed rows.
   for(let rowIndex=0;rowIndex<MAX_WORD_ATTEMPTS;rowIndex++){
     const row=d.rows[rowIndex];
     for(let col=0;col<WORD_LENGTH;col++){
       const cell=row?.[col];
-      tiles.push(`<div class="tile ${cell?.c||''}">${cell?.l||''}</div>`);
+      tiles.push(`<div class="tile ${cell?.c||''}">${escapeHtml(cell?.l||'')}</div>`);
     }
   }
 
-  // Show the currently typed word in the next available row.
-  if(!d.done && d.cur){
+  if(!d.done&&d.cur){
     const rowStart=d.rows.length*WORD_LENGTH;
     for(let col=0;col<WORD_LENGTH;col++){
       const tileIndex=rowStart+col;
@@ -289,24 +288,32 @@ function renderWord(){
   const keyboard=keys.map(k=>`<button type="button" class="key ${keyboardStates[k]||''}" data-key="${k}">${k}</button>`).join('');
   const message=d.done
     ? '<div class="notice">BUILD LOCKED · Come back tomorrow for a new word.</div>'
-    : `<div class="notice">Build a 5-letter word · ${MAX_WORD_ATTEMPTS-d.rows.length} attempts left · Type with your keyboard or tap a key.</div>`;
+    : `${d.message?`<div class="notice signal-feedback error" role="status">${escapeHtml(d.message)}</div>`:''}<div class="notice">Build a 5-letter word · ${MAX_WORD_ATTEMPTS-d.rows.length} attempts left · Type with your keyboard or tap a key.</div>`;
 
-  const shouldKeepKeyboardFocus=el.matches(':focus')||el.contains(document.activeElement);
   el.innerHTML=`<div class="wordgrid" aria-label="Daily Word Build">${tiles.join('')}</div>${d.done?'':`<div class="keyboard" role="group" aria-label="Word keyboard">${keyboard}<button type="button" class="key" data-back aria-label="Backspace">⌫</button><button type="button" class="key" data-enter aria-label="Submit word">↵</button></div>`}${message}`;
   el.tabIndex=0;
-  if(shouldKeepKeyboardFocus)el.focus({preventScroll:true});
+  el.setAttribute('role','application');
+  el.setAttribute('aria-label','Daily Word Build. Click here to type your guess.');
+
+  // Keep the game keyboard-focused after re-rendering so physical keyboard input works naturally.
+  if(document.activeElement===el || el.dataset.autofocus==='true'){
+    el.focus({preventScroll:true});
+  }
+  el.onclick=()=>{if(!state.daily?.word?.done)el.focus({preventScroll:true});};
+  el.dataset.autofocus='true';
 
   $$('.key[data-key]',el).forEach(b=>b.onclick=()=>{typeWord(b.dataset.key);el.focus({preventScroll:true});});
-  $('[data-back]',el)?.addEventListener('click',backWord);
-  $('[data-enter]',el)?.addEventListener('click',enterWord);
+  $('[data-back]',el)?.addEventListener('click',()=>{backWord();el.focus({preventScroll:true});});
+  $('[data-enter]',el)?.addEventListener('click',()=>{enterWord();el.focus({preventScroll:true});});
 }
 
 function typeWord(k){
   ensureDailyState();
-  const d=state.daily.word||{rows:[],cur:'',done:false};
+  const d=state.daily.word||{rows:[],cur:'',done:false,message:''};
   const letter=String(k||'').toUpperCase();
   if(!d.done&&/^[A-Z]$/.test(letter)&&d.cur.length<WORD_LENGTH){
     d.cur+=letter;
+    d.message='';
     state.daily.word=d;
     saveState();
     renderWord();
@@ -315,9 +322,10 @@ function typeWord(k){
 
 function backWord(){
   ensureDailyState();
-  const d=state.daily.word||{rows:[],cur:'',done:false};
+  const d=state.daily.word||{rows:[],cur:'',done:false,message:''};
   if(!d.done&&d.cur.length){
     d.cur=d.cur.slice(0,-1);
+    d.message='';
     state.daily.word=d;
     saveState();
     renderWord();
@@ -326,18 +334,34 @@ function backWord(){
 
 async function enterWord(){
   ensureDailyState();
-  const d=state.daily.word||{rows:[],cur:'',done:false};
+  const d=state.daily.word||{rows:[],cur:'',done:false,message:''};
   if(d.done)return;
   if(d.cur.length!==WORD_LENGTH){
+    d.message=`ENTER A ${WORD_LENGTH}-LETTER WORD.`;
+    state.daily.word=d;
+    saveState();
+    renderWord();
     toast(`ENTER A ${WORD_LENGTH}-LETTER WORD.`);
     return;
   }
 
   const guess=d.cur.toUpperCase();
   const answer=dailyWordForDay().toUpperCase();
+
+  // Never score or consume an attempt for gibberish / unknown words.
+  if(!VALID_WORDS.has(guess) && guess!==answer){
+    d.message='NOT IN WORD LIST · TRY ANOTHER WORD.';
+    state.daily.word=d;
+    saveState();
+    renderWord();
+    toast('NOT IN WORD LIST · TRY ANOTHER WORD.');
+    return;
+  }
+
   const row=evaluateWordGuess(guess,answer);
   d.rows.push(row);
   d.cur='';
+  d.message='';
 
   if(guess===answer||d.rows.length>=MAX_WORD_ATTEMPTS){
     d.done=true;
@@ -357,8 +381,9 @@ function handleWordKeyboard(e){
   const el=$('#wordgame');
   if(!el||state.daily?.word?.done)return;
   const active=document.activeElement;
-  const wordgameIsActive=active===el||el.contains(active);
-  if(!wordgameIsActive)return;
+  const isTypingElsewhere=active && active!==el && ['INPUT','TEXTAREA','SELECT'].includes(active.tagName);
+  if(isTypingElsewhere)return;
+  if(active!==el&&!el.contains(active))return;
   if(e.ctrlKey||e.metaKey||e.altKey)return;
 
   if(/^[a-zA-Z]$/.test(e.key)){
@@ -377,58 +402,6 @@ function handleWordKeyboard(e){
   }
 }
 document.addEventListener('keydown',handleWordKeyboard);
-
-// Daily Signal
-const signalSets=[['SHIP','MERGE','DEPLOY','BUILD'],['GIG','TALENT','FOUNDER','PROJECT'],['CODE','STACK','COMMIT','REPO']];
-function signalSetForDay(k=dayKey()){return signalSets[daySeed(k)%signalSets.length];}
-const signalPoolForDay=k=>[...signalSetForDay(k),...['PITCH','COIN','EVENT','NETWORK','BADGE','STARTUP','DESIGN','COMMUNITY','BOT','HIRE','CRAFT','LAUNCH']];
-function renderLogic(){
-  ensureDailyState();
-  const el=$('#logicgame');
-  if(!el)return;
-  const d=state.daily.logic||{sel:[],done:false,message:''};
-  const signalSet=signalSetForDay();
-  const signalPool=signalPoolForDay(dayKey());
-  const feedback=d.message?`<div class="notice signal-feedback error" role="status">${escapeHtml(d.message)}</div>`:'';
-  el.innerHTML=d.done
-    ? '<div class="notice">SIGNAL MERGED ✓<br>Return tomorrow for a new daily build.</div>'
-    : `<div class="logic">${signalPool.map((x,i)=>`<button type="button" class="${d.sel.includes(i)?'selected':''}" data-signal="${i}">${x}</button>`).join('')}</div>${feedback}<div class="notice">Select the four tiles that share one build signal.</div><button type="button" class="buildbtn" data-merge>MERGE ↗</button>`;
-  if(d.done)return;
-
-  $$('[data-signal]',el).forEach(b=>b.onclick=()=>{
-    const i=Number(b.dataset.signal);
-    d.message='';
-    if(d.sel.includes(i))d.sel=d.sel.filter(x=>x!==i);
-    else if(d.sel.length<4)d.sel.push(i);
-    state.daily.logic=d;
-    saveState();
-    renderLogic();
-  });
-
-  $('[data-merge]',el).onclick=async()=>{
-    if(d.sel.length!==4){
-      d.message='SELECT FOUR TILES BEFORE MERGING.';
-      state.daily.logic=d;
-      saveState();
-      renderLogic();
-      return;
-    }
-    if(d.sel.every(i=>signalSet.includes(signalPool[i]))){
-      d.done=true;
-      d.message='';
-      state.daily.logic=d;
-      saveState();
-      renderLogic();
-      await recordScore(35,'Daily Signal','daily',crypto.randomUUID(),'signal');
-    }else{
-      d.sel=[];
-      d.message='COMBINATION INCORRECT · TRY AGAIN.';
-      state.daily.logic=d;
-      saveState();
-      renderLogic();
-    }
-  };
-}
 
 // Shared Build Wall
 function loadWallLocal(){try{const x=JSON.parse(localStorage.getItem(WALL_STORAGE)||'{}');return x.cells||{};}catch{return {};}}
