@@ -598,3 +598,208 @@ body.modal-open{overflow:hidden;position:fixed;width:100%;}
   body.modal-open{height:100dvh;}
   .gamepanel,.wait-panel{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;}
 }
+
+/* =========================================================
+   ZORTA HOMEPAGE / ARCADE REVEAL
+   ========================================================= */
+
+.game-nav-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  position:relative;
+  color:#021016!important;
+  background:linear-gradient(135deg,#d7f8ff 0%,#63d0ff 52%,#45b8ee 100%)!important;
+  border-color:#a9eaff!important;
+  padding:11px 16px!important;
+  box-shadow:0 0 0 1px rgba(101,207,255,.12),0 10px 32px rgba(50,174,231,.24)!important;
+}
+.game-nav-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 0 0 1px rgba(101,207,255,.2),0 15px 40px rgba(50,174,231,.34)!important}
+.game-nav-dot{
+  width:7px;height:7px;border-radius:50%;background:#073a4f;
+  box-shadow:0 0 0 4px rgba(3,55,74,.08);
+  animation:navPulse 1.6s ease-in-out infinite;
+}
+@keyframes navPulse{50%{transform:scale(1.35);box-shadow:0 0 0 5px rgba(3,55,74,.05)}}
+
+.hero-scroll{
+  display:flex;align-items:center;gap:9px;margin-top:25px;
+  color:#536d7a;font:800 9px/1 "SFMono-Regular",Consolas,monospace;
+  letter-spacing:.18em;
+}
+.hero-scroll span{
+  color:#76d8ff;font-size:15px;line-height:.6;
+  animation:scrollNudge 1.8s ease-in-out infinite;
+}
+@keyframes scrollNudge{50%{transform:translateY(4px)}}
+
+/* The reveal intentionally sits AFTER all of the main Zorta story. */
+.games-tease{
+  position:relative;
+  overflow:hidden;
+  padding:110px 0 105px;
+  border-top:1px solid rgba(101,207,255,.14);
+  border-bottom:1px solid rgba(101,207,255,.12);
+  background:
+    radial-gradient(circle at 76% 46%,rgba(101,207,255,.10),transparent 430px),
+    linear-gradient(180deg,#061019 0%,#03080d 100%);
+}
+.games-tease-glow{
+  position:absolute;width:520px;height:520px;right:-180px;top:5%;
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(101,207,255,.13),rgba(101,207,255,.025) 45%,transparent 70%);
+  filter:blur(10px);
+}
+.games-tease-head{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:30px;
+  margin-bottom:38px;
+}
+.games-tease-head h2{
+  margin:0;
+  font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:clamp(48px,7vw,94px);
+  line-height:.84;letter-spacing:-.075em;font-weight:950;
+}
+.games-tease-head h2 span{color:#83dcff}
+.games-tease-head p{margin:20px 0 0;color:#8198a5;font-size:14px}
+.arcade-badge{
+  flex:0 0 auto;display:flex;flex-direction:column;gap:7px;
+  min-width:155px;padding:14px 16px;border:1px solid #21465b;border-radius:12px;
+  background:rgba(8,22,32,.72);box-shadow:0 15px 45px rgba(0,0,0,.22);
+  font:800 9px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.12em;
+}
+.arcade-badge b{color:#73d8ff}.arcade-badge span{color:#627b89}
+
+.games-tease-grid{
+  display:grid;grid-template-columns:minmax(0,1.03fr) minmax(380px,.97fr);
+  gap:18px;align-items:stretch;
+}
+.games-pitch,.canvas-tease{
+  border:1px solid #1b3b4e;border-radius:22px;
+  background:linear-gradient(145deg,rgba(10,26,38,.96),rgba(4,12,18,.98));
+  box-shadow:0 28px 80px rgba(0,0,0,.34);
+}
+.games-pitch{padding:32px}
+.pitch-kicker{
+  color:#6090a6;font:800 9px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.18em;
+}
+.games-pitch h3{
+  margin:13px 0 13px;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:clamp(31px,4.2vw,54px);line-height:.95;letter-spacing:-.06em;
+}
+.games-pitch>p{max-width:540px;color:#91a5af;font-size:14px;line-height:1.65;margin:0}
+.feature-chips{display:flex;flex-wrap:wrap;gap:7px;margin:23px 0 28px}
+.feature-chips span{
+  padding:8px 10px;border:1px solid #1e4053;border-radius:7px;
+  background:#07151f;color:#bceeff;font:900 9px/1 "SFMono-Regular",Consolas,monospace;
+  letter-spacing:.08em;
+}
+.game-big-cta{
+  display:flex;align-items:center;justify-content:space-between;gap:15px;
+  width:min(100%,420px);padding:16px 17px;border-radius:11px;
+  color:#021017;background:linear-gradient(135deg,#c9f5ff,#55c8fa);
+  border:1px solid #9ae5ff;font:950 12px/1 "SFMono-Regular",Consolas,monospace;
+  letter-spacing:.1em;box-shadow:0 12px 34px rgba(48,169,222,.2);
+  transition:.2s transform,.2s box-shadow;
+}
+.game-big-cta span{font-size:18px}
+.game-big-cta:hover{transform:translateY(-3px);box-shadow:0 18px 48px rgba(48,169,222,.32)}
+.games-pitch>small{
+  display:block;margin-top:12px;color:#506875;font-size:9px;line-height:1.5;max-width:480px;
+}
+
+.canvas-tease{padding:18px;display:flex;flex-direction:column;min-height:390px}
+.canvas-tease-top,.canvas-tease-bottom{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  font:800 9px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.1em;
+}
+.canvas-tease-top{padding:3px 3px 15px;color:#bdeeff}
+.canvas-tease-top>span{color:#526d7a}
+.live-dot{
+  display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;
+  background:#6ee7c7;box-shadow:0 0 12px rgba(110,231,199,.65);
+  animation:livePulse 1.4s infinite;
+}
+@keyframes livePulse{50%{opacity:.45;transform:scale(.8)}}
+.mini-canvas{
+  flex:1;display:grid;grid-template-columns:repeat(10,1fr);gap:2px;
+  padding:8px;border:1px solid #173648;border-radius:13px;
+  background:#02080c;overflow:hidden;
+  box-shadow:inset 0 0 45px rgba(101,207,255,.04);
+}
+.mini-canvas i{
+  display:block;min-width:0;aspect-ratio:1;background:#07141c;border-radius:1px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.012);
+  animation:pixelBlink 4.5s ease-in-out infinite;
+}
+.mini-canvas i:nth-child(3n){background:#0d2530}
+.mini-canvas i:nth-child(7n){background:#123445}
+.mini-canvas i:nth-child(11),.mini-canvas i:nth-child(24),.mini-canvas i:nth-child(35),.mini-canvas i:nth-child(47),.mini-canvas i:nth-child(58){background:#64d2ff;box-shadow:0 0 9px rgba(100,210,255,.25)}
+.mini-canvas i:nth-child(14),.mini-canvas i:nth-child(25),.mini-canvas i:nth-child(36),.mini-canvas i:nth-child(48),.mini-canvas i:nth-child(59){background:#d9ff3f;box-shadow:0 0 9px rgba(217,255,63,.2)}
+.mini-canvas i:nth-child(16),.mini-canvas i:nth-child(17),.mini-canvas i:nth-child(18),.mini-canvas i:nth-child(26),.mini-canvas i:nth-child(37),.mini-canvas i:nth-child(49),.mini-canvas i:nth-child(60){background:#315b68}
+.mini-canvas i:nth-child(4n){animation-delay:-1.2s}
+.mini-canvas i:nth-child(5n){animation-delay:-2.5s}
+@keyframes pixelBlink{50%{filter:brightness(1.3)}}
+.canvas-tease-bottom{padding:15px 3px 2px;align-items:flex-end}
+.canvas-tease-bottom strong{color:#e6f9ff;font-size:11px}
+.canvas-tease-bottom span{color:#607987;font-size:9px;text-align:right}
+
+.games-proof{
+  display:grid;grid-template-columns:repeat(4,1fr);margin-top:18px;
+  border:1px solid #183548;border-radius:15px;overflow:hidden;background:#06121a;
+}
+.games-proof>div{padding:16px 18px;border-right:1px solid #183548}
+.games-proof>div:last-child{border-right:0}
+.games-proof b{display:block;color:#72d7ff;font:950 11px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.1em}
+.games-proof span{display:block;margin-top:7px;color:#607783;font-size:10px}
+
+@media(min-width:1400px){
+  .wrap{width:min(1320px,calc(100% - 96px))}
+  .reference-hero{padding-top:150px;padding-bottom:95px}
+  .reference-hero h1{font-size:clamp(100px,8vw,152px)}
+  .manifesto{margin-top:150px}
+  .about{padding-top:90px;padding-bottom:90px}
+  .wow{padding:60px 0 95px}
+  .wowbox{min-height:330px}
+  .community{padding:85px 0 100px}
+  .games-tease{padding-top:125px;padding-bottom:120px}
+}
+
+/* Large-screen/TV stability: never let content become microscopic or awkwardly sparse. */
+@media(min-width:761px) and (max-width:1100px){
+  .reference-nav-right{gap:10px}
+  .reference-nav .socials{gap:5px}
+}
+@media(min-width:761px) and (max-width:1200px){
+  .games-tease-grid{grid-template-columns:1fr 1fr}
+  .canvas-tease{min-height:350px}
+}
+@media(max-width:760px){
+  .reference-nav-right{gap:8px}
+  .reference-nav .nav-wait{display:inline-flex}
+  .game-nav-btn{padding:9px 10px!important;font-size:9px!important}
+  .hero-scroll{margin-top:20px}
+  .games-tease{padding:78px 0 75px}
+  .games-tease-head{display:block;margin-bottom:25px}
+  .arcade-badge{display:inline-flex;margin-top:22px;min-width:0}
+  .games-tease-grid{grid-template-columns:1fr}
+  .games-pitch{padding:22px}
+  .canvas-tease{min-height:330px}
+  .games-proof{grid-template-columns:1fr 1fr}
+  .games-proof>div:nth-child(2){border-right:0}
+  .games-proof>div:nth-child(-n+2){border-bottom:1px solid #183548}
+}
+@media(max-width:440px){
+  .reference-nav-right{gap:5px}
+  .game-nav-btn{padding:8px 8px!important;font-size:8px!important}
+  .game-nav-dot{width:5px;height:5px}
+  .games-tease-head h2{font-size:clamp(44px,15vw,70px)}
+  .games-pitch h3{font-size:36px}
+  .game-big-cta{width:100%;padding:15px}
+  .canvas-tease{min-height:290px;padding:12px}
+  .canvas-tease-bottom{display:block}
+  .canvas-tease-bottom span{display:block;text-align:left;margin-top:6px}
+}
+@media(prefers-reduced-motion:reduce){
+  .game-nav-dot,.hero-scroll span,.live-dot,.mini-canvas i{animation:none!important}
+}
