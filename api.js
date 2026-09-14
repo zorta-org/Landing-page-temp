@@ -1,13 +1,12 @@
 export const API_BASE = 'https://coming-backend.onrender.com';
 
-
-
 export async function api(path, options = {}) {
   if (!API_BASE) return null;
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), Number(options.timeoutMs) || 8000);
+  const timeoutMs = Number(options.timeoutMs) || 8000;
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const { timeoutMs, ...fetchOptions } = options;
+    const { timeoutMs: _timeoutMs, ...fetchOptions } = options;
     const res = await fetch(`${API_BASE}${path}`, {
       ...fetchOptions,
       signal: controller.signal,
@@ -16,8 +15,11 @@ export async function api(path, options = {}) {
     const body = await res.json().catch(() => ({}));
     if (!res.ok) return { ...body, ok: false, error: body.error || `HTTP ${res.status}` };
     return body;
-  } catch { return null; }
-  finally { clearTimeout(timeout); }
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 export function getUserId() {
@@ -30,7 +32,15 @@ export function getUserId() {
   return id;
 }
 
-export async function submitWaitlist(email) {
-  const result = await api('/api/waitlist', { method: 'POST', body: JSON.stringify({ email }) });
+export async function submitWaitlist({ email, source = '', suggestions = '', role = '' }) {
+  const result = await api('/api/waitlist', {
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+      source,
+      suggestions,
+      role
+    })
+  });
   return result?.ok ? result : { ok: false, error: result?.error || 'unavailable' };
 }

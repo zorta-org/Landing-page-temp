@@ -1,4 +1,5 @@
 import { api, getUserId, submitWaitlist } from './api.js';
+import { SOCIALS } from './social-config.js';
 
 const BUILDER_ID = getUserId();
 const $ = (s, r = document) => r.querySelector(s);
@@ -29,6 +30,74 @@ let gameEnds = 0;
 let gameFinished = false;
 let activeGame = -1;
 let gameCleanup = [];
+
+function configureSocialLinks(){
+  $$('[data-social]').forEach(link=>{
+    const key=link.dataset.social;
+    const value=String(SOCIALS[key]||'').trim();
+    if(!value){
+      link.hidden=true;
+      link.setAttribute('aria-hidden','true');
+      link.removeAttribute('href');
+      return;
+    }
+    link.hidden=false;
+    link.removeAttribute('aria-hidden');
+    link.href=key==='email'&&!/^mailto:/i.test(value)?`mailto:${value}`:value;
+    if(key!=='email') link.target='_blank';
+    if(key!=='email') link.rel='noopener noreferrer';
+  });
+}
+
+function initReveal(){
+  const items=$$('.reveal');
+  if(!items.length)return;
+  try{
+    const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+    if(reduced){
+      items.forEach(el=>el.classList.add('on','reveal-immediate'));
+      return;
+    }
+    if(!('IntersectionObserver' in window)){
+      items.forEach(el=>el.classList.add('on'));
+      return;
+    }
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(!entry.isIntersecting)return;
+        entry.target.classList.add('on');
+        observer.unobserve(entry.target);
+      });
+    },{threshold:0.15,rootMargin:'0px 0px -5% 0px'});
+    items.forEach(el=>observer.observe(el));
+  }catch{
+    items.forEach(el=>el.classList.add('on'));
+  }
+}
+
+let keepAliveTimer=null;
+let keepAliveInFlight=false;
+function scheduleBackendKeepAlive(initial=false){
+  clearTimeout(keepAliveTimer);
+  const min=initial?15000:8*60*1000;
+  const max=initial?30000:12*60*1000;
+  const delay=Math.floor(min+Math.random()*(max-min));
+  keepAliveTimer=setTimeout(async()=>{
+    if(!keepAliveInFlight){
+      keepAliveInFlight=true;
+      try{
+        await api(`/api/profile?userId=${encodeURIComponent(BUILDER_ID)}`,{timeoutMs:65000,cache:'no-store'});
+      }finally{
+        keepAliveInFlight=false;
+      }
+    }
+    scheduleBackendKeepAlive(false);
+  },delay);
+}
+
+configureSocialLinks();
+initReveal();
+scheduleBackendKeepAlive(true);
 
 function loadState(){ try { return {...defaultState, ...JSON.parse(localStorage.getItem(STORAGE)||'{}')}; } catch { return {...defaultState}; } }
 function saveState(){ localStorage.setItem(STORAGE, JSON.stringify(state)); }
@@ -177,11 +246,39 @@ setInterval(updateCooldown,250); updateCooldown();
 async function loadBoard(scope){const result=await api(`/api/leaderboard?scope=${scope}`);const body=$('#boardrows');if(!body)return;if(!result||result.error){body.innerHTML='<tr><td colspan="3" class="notice">NETWORK OFFLINE · LIVE RANKINGS UNAVAILABLE</td></tr>';return;}const entries=Array.isArray(result.entries)?result.entries:[];if(!entries.length){body.innerHTML=`<tr><td colspan="3" class="notice">${scope==='weekly'?'NO BUILDS THIS WEEK YET.':'NO BUILDS RECORDED YET.'}</td></tr>`;return;}body.innerHTML=entries.map((r,i)=>`<tr><td>${String(i+1).padStart(2,'0')}</td><td>${escapeHtml(r.displayName||`Builder #${String(r.userId||'').slice(-4)}`)}</td><td>${Number(r.reputation)||0} REP</td></tr>`).join('');}
 
 // Waitlist
-const waitModal=$('#waitModal'),waitForm=$('#waitlistForm'),waitEmail=$('#waitlistEmail'),waitStatus=$('#waitStatus');
+const waitModal=$('#waitModal'),waitForm=$('#waitlistForm'),waitEmail=$('#waitlistEmail'),waitSource=$('#waitlistSource'),waitRole=$('#waitlistRole'),waitSuggestions=$('#waitlistSuggestions'),waitStatus=$('#waitStatus');
 function openWaitlist(){waitModal?.classList.add('open');waitModal?.setAttribute('aria-hidden','false');if(waitStatus){waitStatus.textContent='';waitStatus.className='wait-status';}setTimeout(()=>waitEmail?.focus(),60);}
 function closeWaitlist(){waitModal?.classList.remove('open');waitModal?.setAttribute('aria-hidden','true');}
 $$('[data-open-waitlist]').forEach(b=>b.addEventListener('click',openWaitlist));$('#waitClose')?.addEventListener('click',closeWaitlist);waitModal?.addEventListener('click',e=>{if(e.target===waitModal)closeWaitlist();});
-waitForm?.addEventListener('submit',async e=>{e.preventDefault();if(!waitForm.checkValidity())return;const btn=waitForm.querySelector('button');btn.disabled=true;btn.textContent='ADDING…';try{const result=await submitWaitlist(waitEmail.value.trim().toLowerCase());if(result?.ok){waitStatus.textContent="YOU'RE ON THE LIST. We'll let you know when Zorta ships.";waitStatus.className='wait-status success';waitEmail.value='';}else if(result?.error==='already_registered'){waitStatus.textContent='That email is already on the list.';waitStatus.className='wait-status';}else{waitStatus.textContent='Couldn’t add you right now. Please try again.';waitStatus.className='wait-status error';}}finally{btn.disabled=false;btn.textContent='JOIN';}});
+waitForm?.addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!waitForm.checkValidity()){waitForm.reportValidity();return;}
+  const btn=waitForm.querySelector('button[type=submit]');
+  btn.disabled=true;
+  btn.textContent='ADDING…';
+  try{
+    const result=await submitWaitlist({
+      email:waitEmail.value.trim().toLowerCase(),
+      source:waitSource?.value||'',
+      role:waitRole?.value||'',
+      suggestions:waitSuggestions?.value.trim()||''
+    });
+    if(result?.ok){
+      waitStatus.textContent="YOU'RE ON THE LIST. We'll let you know when Zorta ships.";
+      waitStatus.className='wait-status success';
+      waitForm.reset();
+    }else if(result?.error==='already_registered'){
+      waitStatus.textContent='That email is already on the list.';
+      waitStatus.className='wait-status';
+    }else{
+      waitStatus.textContent='Couldn’t add you right now. Please try again.';
+      waitStatus.className='wait-status error';
+    }
+  }finally{
+    btn.disabled=false;
+    btn.textContent='JOIN';
+  }
+});
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&waitModal?.classList.contains('open'))closeWaitlist();});
 $('#weekly')?.addEventListener('click',()=>{boardMode='weekly';$('#weekly').classList.add('active');$('#life').classList.remove('active');loadBoard('weekly');});
