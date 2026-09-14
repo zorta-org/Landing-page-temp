@@ -442,3 +442,89 @@ footer{border-top:1px solid #102632;padding:35px 0;color:#6f8490}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
 .reveal.on{opacity:1;transform:none}
 .reveal.reveal-immediate{opacity:1;transform:none;transition:none}
+
+/* Reference-inspired Zorta landing hero: visual-only redesign; app/game logic remains untouched. */
+.reference-nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(2,3,5,.68);border-bottom:1px solid rgba(101,207,255,.11);
+  backdrop-filter:blur(18px) saturate(120%);
+}
+.reference-nav .navin{min-height:76px;padding:8px 0}
+.reference-nav .brand-logo{width:88px;height:58px;object-fit:contain;display:block;filter:drop-shadow(0 0 18px rgba(101,207,255,.16))}
+.reference-nav-right{display:flex;align-items:center;gap:22px}
+.reference-nav .nav-wait{padding:9px 12px;font-size:10px}
+.reference-nav .nav-link{
+  color:#a8bac5;font:700 11px/1 "SFMono-Regular",Consolas,monospace;
+  letter-spacing:.04em;transition:color .18s ease
+}
+.reference-nav .nav-link span{color:var(--blue2);margin-left:4px}
+.reference-nav .nav-link:hover{color:#eefaff}
+
+.reference-hero{
+  min-height:auto;display:block;text-align:left;position:relative;overflow:hidden;
+  padding:clamp(72px,10vw,132px) 0 70px;
+  background:
+    radial-gradient(circle at 74% 24%,rgba(71,186,237,.12),transparent min(34vw,420px)),
+    radial-gradient(circle at 13% 56%,rgba(46,128,174,.065),transparent 330px);
+}
+.reference-hero:before{display:none}
+.hero-inner{position:relative;z-index:1}
+.hero-copy{max-width:800px;position:relative;z-index:2}
+.reference-hero .eyebrow{margin:0 0 18px;color:#68cfff;font-size:10px;letter-spacing:.2em}
+.reference-hero h1{
+  margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:clamp(58px,12vw,148px);line-height:.82;letter-spacing:-.085em;font-weight:950;
+  color:#f3f9fc;text-wrap:balance;
+}
+.reference-hero h1 span{color:#83dcff}
+.reference-hero .lede{
+  max-width:650px;margin:30px 0 0;color:#94a9b5;font-size:clamp(14px,1.6vw,17px);line-height:1.72
+}
+.hero-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:27px}
+.reference-hero .btn{border-radius:9px;padding:12px 15px}
+.reference-hero .btn.ghost{background:rgba(7,17,26,.42);color:#dcecf2}
+.hero-games{
+  display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+  color:#6ecfff;font:800 11px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.08em;
+  border-bottom:1px solid rgba(101,207,255,.3);padding-bottom:5px;transition:.18s color,.18s border-color,.18s transform
+}
+.hero-games:hover{color:#dff8ff;border-color:#78d9ff;transform:translateX(3px)}
+
+.orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(1px)}
+.orb-a{width:min(45vw,520px);height:min(45vw,520px);right:-8%;top:2%;background:radial-gradient(circle,rgba(96,207,255,.12),rgba(96,207,255,.025) 48%,transparent 70%);box-shadow:inset 0 0 100px rgba(101,207,255,.035)}
+.orb-b{width:min(28vw,330px);height:min(28vw,330px);left:-13%;bottom:6%;background:radial-gradient(circle,rgba(44,155,210,.08),transparent 68%)}
+
+.manifesto{
+  margin-top:clamp(92px,13vw,170px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;
+  border-top:1px solid rgba(101,207,255,.14)
+}
+.manifesto>div{padding:24px 28px 10px 0;margin-right:28px;border-right:1px solid rgba(101,207,255,.11)}
+.manifesto>div:last-child{border-right:0;margin-right:0;padding-right:0}
+.manifesto>div>span{display:block;color:#4f849b;font:800 10px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.16em;margin-bottom:24px}
+.manifesto h2{margin:0 0 12px;font-size:clamp(18px,2.1vw,25px);line-height:1.15;letter-spacing:-.035em;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.manifesto p{margin:0;color:#748995;font-size:12px;line-height:1.7}
+
+@media(max-width:760px){
+  .reference-nav .navin{min-height:64px}
+  .reference-nav .brand-logo{width:78px;height:48px}
+  .reference-nav-right{gap:14px}
+  .reference-nav .nav-wait{display:none}
+  .reference-nav .nav-link{font-size:10px}
+  .reference-hero{padding:66px 0 55px}
+  .reference-hero h1{font-size:clamp(54px,17vw,100px);line-height:.86}
+  .reference-hero .lede{font-size:14px;margin-top:24px;max-width:100%}
+  .manifesto{grid-template-columns:1fr;margin-top:85px}
+  .manifesto>div{border-right:0;border-bottom:1px solid rgba(101,207,255,.11);margin:0;padding:24px 0}
+  .manifesto>div:last-child{border-bottom:0}
+  .manifesto>div>span{margin-bottom:14px}
+}
+@media(max-width:440px){
+  .reference-nav .nav-link{font-size:9px}
+  .reference-hero{padding-top:55px}
+  .reference-hero h1{font-size:clamp(50px,17vw,76px);letter-spacing:-.09em}
+  .hero-actions{display:grid;grid-template-columns:1fr;width:100%;max-width:330px}
+  .hero-actions .btn{width:100%;text-align:center}
+  .hero-games{margin-top:20px}
+  .orb-a{right:-35%;top:4%;width:90vw;height:90vw}
+  .orb-b{left:-35%;width:70vw;height:70vw}
+}
