@@ -803,3 +803,272 @@ body.modal-open{overflow:hidden;position:fixed;width:100%;}
 @media(prefers-reduced-motion:reduce){
   .game-nav-dot,.hero-scroll span,.live-dot,.mini-canvas i{animation:none!important}
 }
+
+/* =========================================================
+   FINAL RESPONSIVE HARDENING
+   The navbar is deliberately collapsed before it can run
+   out of room. No wrapping, no horizontal overflow.
+   ========================================================= */
+
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  min-width: 0;
+}
+
+.navin {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.reference-nav-desktop {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(8px, 1.4vw, 22px);
+  min-width: 0;
+}
+
+.reference-nav-desktop .socials {
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+}
+
+.reference-nav-desktop .btn {
+  flex: 0 0 auto;
+}
+
+.mobile-nav {
+  display: none;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.mobile-nav summary {
+  list-style: none;
+}
+
+.mobile-nav summary::-webkit-details-marker {
+  display: none;
+}
+
+.mobile-nav-toggle {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 5px;
+  border: 1px solid var(--line2);
+  border-radius: 10px;
+  background: rgba(8, 22, 32, .9);
+  cursor: pointer;
+}
+
+.mobile-nav-toggle span {
+  width: 18px;
+  height: 2px;
+  border-radius: 99px;
+  background: #dff7ff;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+.mobile-nav[open] .mobile-nav-toggle span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-nav[open] .mobile-nav-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-nav[open] .mobile-nav-toggle span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-nav-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: min(320px, calc(100vw - 24px));
+  padding: 10px;
+  border: 1px solid #23465b;
+  border-radius: 16px;
+  background: rgba(4, 12, 18, .97);
+  box-shadow: 0 24px 70px rgba(0,0,0,.45);
+  backdrop-filter: blur(18px) saturate(130%);
+}
+
+.mobile-nav-link {
+  width: 100%;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 12px 13px;
+  color: #eaf8fd;
+  background: transparent;
+  font: 900 10px/1 "SFMono-Regular",Consolas,monospace;
+  letter-spacing: .08em;
+  text-align: left;
+  text-decoration: none;
+}
+
+.mobile-nav-game {
+  color: #021017;
+  background: linear-gradient(135deg,#d7f8ff,#63d0ff 52%,#45b8ee);
+  border-color: #a9eaff;
+}
+
+.mobile-nav-wait {
+  margin-top: 7px;
+  color: #eaf8fd;
+  background: #091722;
+  border-color: #23465b;
+}
+
+.mobile-nav-socials {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid rgba(101,207,255,.1);
+}
+
+.mobile-nav-socials a {
+  width: 100%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: #9db1be;
+  background: #07131d;
+}
+
+.mobile-nav-socials svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.mobile-nav-socials a:hover {
+  color: var(--blue2);
+  border-color: var(--line2);
+}
+
+/* Tablet and phone: never squeeze the desktop navbar. */
+@media (max-width: 900px) {
+  .reference-nav .navin {
+    min-height: 64px;
+    padding: 8px 0;
+    flex-wrap: nowrap;
+  }
+
+  .reference-nav .brand {
+    margin-right: auto;
+  }
+
+  .reference-nav .brand-logo {
+    width: 78px;
+    height: 48px;
+  }
+
+  .reference-nav-desktop {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: block;
+  }
+
+  .wrap {
+    width: calc(100% - 24px);
+    max-width: 1120px;
+  }
+}
+
+/* Very small phones: give the menu and logo breathing room. */
+@media (max-width: 380px) {
+  .reference-nav .brand-logo {
+    width: 72px;
+    height: 44px;
+  }
+
+  .mobile-nav-toggle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .mobile-nav-panel {
+    width: min(300px, calc(100vw - 18px));
+  }
+
+  .mobile-nav-socials {
+    gap: 5px;
+  }
+}
+
+/* Kill common overflow culprits across the whole page. */
+img, svg, video, canvas, iframe {
+  max-width: 100%;
+}
+
+h1, h2, h3, p, a, button, td, th, label, small, span {
+  overflow-wrap: anywhere;
+}
+
+section, main, footer, nav, .wrap, .card, .games-tease-grid,
+.games-pitch, .canvas-tease, .communitybox, .manifesto {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  .games-tease-grid,
+  .communitybox,
+  .canvasbox,
+  .dailygrid,
+  .games {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .manifesto {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .games-proof {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .games-proof {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .games-proof > div,
+  .games-proof > div:nth-child(2) {
+    border-right: 0;
+    border-bottom: 1px solid #183548;
+  }
+
+  .games-proof > div:last-child {
+    border-bottom: 0;
+  }
+
+  .wait-head {
+    gap: 10px;
+  }
+
+  .wait-head h2 {
+    font-size: 23px;
+  }
+}
